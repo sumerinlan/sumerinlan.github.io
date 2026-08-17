@@ -1,0 +1,69 @@
+/**
+ * Timeline (About page) — same row/divider language as compact
+ * Work Experience entries, so the two pages read as one system.
+ */
+#timeline {
+    margin-top: $spacing-unit-vertical * 2;
+    margin-bottom: $spacing-unit-vertical * 2;
+}
+
+.timeline-item {
+    // layout
+    padding: $spacing-unit-vertical * 1.75 0;
+    border-bottom: 1px solid $border-color;
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    &.academic .timeline-type {
+        color: $accent-color;
+    }
+
+    &.industry .timeline-type {
+        color: $accent-color-secondary;
+    }
+}
+
+.timeline-header-row {
+    // layout
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.timeline-type {
+    // font — small uppercase eyebrow, matches .post-content h3
+    font-family: $base-font-family;
+    @include relative-font-size(0.75);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.timeline-date {
+    // font
+    @include relative-font-size(0.8);
+    color: $text-tertiary;
+}
+
+.timeline-header {
+    // font — same treatment as an entry title elsewhere (e.g. .post-list-title)
+    font-family: $heading-font-family;
+    font-weight: 600;
+    @include relative-font-size(1.05);
+}
+
+.timeline-text {
+    // font
+    @include relative-font-size(0.9);
+    color: $text-secondary;
+    // layout
+    margin-top: 6px;
+}

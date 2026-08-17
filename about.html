@@ -1,0 +1,39 @@
+---
+# basic info
+layout: page
+title: About Myself
+permalink: /about
+# page info
+in-header: true
+site: portfolio
+wide: true
+# content info
+heading_content: |
+    <p>
+        Hi! I am Suyie, a Senior Software Engineer at Snowflake. Hear my story below.
+    <p>
+---
+
+{% capture bio %}{% include bio.md %}{% endcapture %}
+{{ bio | markdownify }}
+
+<div id="timeline">
+    {% for item in site.data.bio %}
+    {% if item.type == "Full-time" or item.type == "Grad School" or item.type == "College" or item.type == "High School" %}
+    <div class="timeline-item {% if item.group == 1 %}academic{% else %}industry{% endif %}">
+        <div class="timeline-header-row">
+            <span class="timeline-type">{{- item.type -}}</span>
+            <time class="timeline-date">{{- item.date -}}</time>
+        </div>
+        <div class="timeline-header">
+            {{- item.header -}}
+        </div>
+        {%- if item.text -%}
+        <div class="timeline-text">
+            {{- item.text -}}
+        </div>
+        {%- endif -%}
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+</div>

@@ -1,0 +1,15 @@
+# Site
+title:             Suyie Zhi
+
+# Profile
+author:            Suyie Z.
+headline:          Full-Stack Engineer
+description:       Senior Software Engineer at Snowflake, building full-stack data-sharing products on SnowflakeDB.
+github_username:   sumerinlan
+linkedin_username: suyieqilezhi
+
+# Build settings
+markdown:          kramdown
+theme:             minima
+plugins:
+  - jekyll-feed

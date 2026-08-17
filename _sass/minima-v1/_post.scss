@@ -1,0 +1,267 @@
+/**
+ * Pages & Posts
+ */
+.page-content,
+.post-content {
+    // layout
+    margin: $spacing-unit-vertical 0;
+    padding: $spacing-unit-vertical 0;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+        // layout
+        margin-bottom: $spacing-unit-vertical;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        // layout
+        margin-top: $spacing-unit-vertical * 2;
+    }
+}
+
+/*
+ * Post detail body (Work / Internship / Project entries) — structured,
+ * multi-section write-ups need more hierarchy than a plain page does.
+ */
+.post-content {
+    ul,
+    ol {
+        margin-bottom: $spacing-unit-vertical;
+    }
+
+    li {
+        margin-bottom: $spacing-unit-vertical / 2;
+        line-height: 1.6;
+    }
+
+    strong {
+        color: $tag-text-color;
+    }
+
+    em {
+        color: $text-secondary;
+    }
+
+    // Section breaks (e.g. each role/initiative on a Work post)
+    h2 {
+        padding-top: $spacing-unit-vertical * 2;
+        border-top: 1px solid $border-color;
+
+        &:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+    }
+
+    // Sub-labels within a section (e.g. "Context & Problem") — an eyebrow,
+    // not a second-level headline, so it stays out of the serif hierarchy.
+    h3 {
+        font-family: $base-font-family;
+        @include relative-font-size(0.8);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $tag-text-color;
+        margin-top: $spacing-unit-vertical * 1.5;
+        margin-bottom: $spacing-unit-vertical / 2;
+    }
+
+    // Meta line directly under a section title (role + date range)
+    h2 + p {
+        margin-top: -$spacing-unit-vertical / 2;
+        color: $text-secondary;
+        font-style: italic;
+    }
+}
+/**
+ * Page: Experience & Project Items
+ */
+#items {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    // opaque background so sticky content doesn't show through what scrolls beneath it
+    background-color: $background-color;
+    padding: 12px 0;
+    margin: -12px 0 0;
+}
+
+.post-list {
+    // flex
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.post-list-block {
+    // layout
+    width: 30%;
+    max-width: 480px;
+    @media screen and (max-width: $on-large) {
+        width: 100% !important;
+    }
+    padding: 0;
+    margin: 20px;
+    // flex
+    display: flex;
+    flex-direction: column;
+    // border — flat, line-based, matches row dividers used elsewhere
+    border-radius: 6px;
+    border: 1px solid $border-color;
+
+    a {
+        color: $text-color;
+
+        &:hover,
+        &:visited:hover {
+            opacity: 0.4;
+        }
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+.post-list-header {
+    // layout
+    margin: 15px 20px 10px;
+    // flex
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .post-list-date {
+        // font
+        @include relative-font-size(0.8);
+        text-align: right;
+        color: $text-tertiary;
+        // flex
+        flex-grow: 2;
+    }
+}
+
+/*
+ * Compact rows (e.g. Work Experience entries) — same content, lighter chrome
+ */
+.post-list-compact {
+    flex-direction: column;
+    align-items: stretch;
+
+    .post-list-block {
+        // layout
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        // border
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid $border-color;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .post-list-header {
+        margin: 15px 0 10px;
+    }
+
+    .post-list-content {
+        margin: 0 0 15px;
+
+        .post-list-title {
+            @include relative-font-size(1.05);
+        }
+    }
+}
+
+.post-list-content {
+    // font
+    @include relative-font-size(0.8);
+    // layout
+    margin: 10px 20px 15px;
+
+    .post-list-title {
+        // font
+        font-family: $heading-font-family;
+        font-weight: 600;
+        @include relative-font-size(1.2);
+        margin-bottom: 5px;
+    }
+
+    .post-list-excerpt {
+        font-style: italic;
+        color: $text-secondary;
+        margin-bottom: 5px;
+        // flex
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .post-tags {
+        // font
+        @include relative-font-size(0.6);
+    }
+}
+/*
+ * Post
+ */
+.post-items {
+    // Layout
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    // Color
+    &,
+    &:visited {
+        color: $tag-text-color !important;
+        background-color: $tag-background-color !important;
+    }
+}
+
+a.post-items {
+    &:hover {
+        color: white !important;
+        background-color: $accent-color !important;
+    }
+}
+
+.post-tags {
+    // Layout
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 2px 4px;
+    // Color
+    & {
+        color: $text-tertiary;
+    }
+}
+
+.post-meta {
+    // Font
+    time {
+        font-weight: bold;
+    }
+    .post-meta-role {
+        color: $text-secondary;
+    }
+    // Layout
+    margin-bottom: $spacing-unit-vertical;
+}

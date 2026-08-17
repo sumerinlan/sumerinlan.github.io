@@ -1,0 +1,17 @@
+<div id="heading">
+    {%- include header.html -%}
+
+    <div class="wrapper {% if page.wide %}wrapper-wide{% endif %} content">
+
+        <div id="heading-title">{{- include.heading -}}</div>
+
+        {%- if include.content -%}
+        {{- include.content -}}
+        {%- else -%}
+        <div id='heading-excerpt'>
+            {{-page.excerpt-}}
+        </div>
+        {%- endif -%}
+
+    </div>
+</div>

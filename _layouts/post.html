@@ -1,0 +1,55 @@
+---
+layout: main
+---
+
+<div class="post-content">
+    <p class="post-meta">
+        <!-- date -->
+        <time>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            {{- page.date | date: date_format -}}
+        </time>
+        {%- if page.role -%}
+        <span class="post-meta-role">&nbsp;·&nbsp;{{- page.role -}}</span>
+        {%- endif -%}
+    </p>
+
+    {%- if page.demo or page.website or page.report or page.source_code -%}
+    <p class="post-meta">
+        {%- if page.demo -%}
+        <a href="{{- page.demo -}}" target="_blank" class="post-items">Demo</a>
+        {%- endif -%}
+        {%- if page.website -%}
+        <a href="{{- page.website -}}" target="_blank" class="post-items">Website</a>
+        {%- endif -%}
+        {%- if page.report -%}
+        <a href="{{- page.report -}}" target="_blank" class="post-items">Report</a>
+        {%- endif -%}
+        {%- if page.source_code -%}
+        <a href="{{- page.source_code -}}" target="_blank" class="post-items">Source code</a>
+        {%- endif -%}
+    </p>
+    {%- endif -%}
+
+    <p class="post-meta">
+        <!-- categories -->
+        {%- if page.categories -%}
+        {%- assign categories = page.categories | sort -%}
+        {%- for category in categories -%}
+        <a href="{{- site.url -}}/projects#{{- category | slugify -}}" class="post-items">
+            {{- category -}}
+        </a>
+        {%- endfor -%}
+        {%- endif -%}
+
+        <!-- tags -->
+        {%- if page.tags -%}
+        {%- assign tags = page.tags | sort -%}
+        {%- for tag in tags -%}
+        <span class="post-tags">{{- tag -}}</span>
+        {%- endfor -%}
+        {%- endif -%}
+    </p>
+
+    {{- content -}}
+</div>

@@ -1,0 +1,96 @@
+---
+# basic info
+layout: page
+title: Work Experience
+permalink: /experience
+# page info
+in-header: true
+site: portfolio
+wide: true
+---
+
+<h2>Full-time Jobs</h2>
+
+{%- assign section = "Work" -%}
+
+<ul class="list-style-none post-list post-list-compact">
+    {%- for post in site.posts -%}
+    {%- unless post.exclude -%}
+    {%- if post.type == section -%}
+    <li class="post-list-block">
+        <a href="{{- post.url -}}">
+            <!-- role and date -->
+            <div class="post-list-header">
+                <div>{{- post.role -}}</div>
+                {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                <time class="post-list-date">{{- post.date | date: date_format -}}</time>
+            </div>
+
+            <!-- title and excerpt -->
+            <div class="post-list-content">
+                <div class="post-list-title">
+                    {{- post.title | escape -}}
+                </div>
+                {%- if post.excerpt -%}
+                <div class="post-list-excerpt">
+                    <span>{{- post.excerpt -}}</span>
+                    <span>{{- post.location -}}</span>
+                </div>
+                {%- endif -%}
+                <!-- tags -->
+                {%- if post.tags -%}
+                {%- assign tags = post.tags | sort -%}
+                {%- for tag in tags -%}
+                <span class="post-tags">{{- tag -}}</span>
+                {%- endfor -%}
+                {%- endif -%}
+            </div>
+        </a>
+    </li>
+    {%- endif -%}
+    {%- endunless -%}
+    {%- endfor -%}
+</ul>
+
+<h2>Earlier Experience</h2>
+
+{%- assign section = "Internship" -%}
+
+<ul class="list-style-none post-list post-list-compact">
+    {%- for post in site.posts -%}
+    {%- unless post.exclude -%}
+    {%- if post.type == section -%}
+    <li class="post-list-block">
+        <a href="{{- post.url -}}">
+            <!-- role and date -->
+            <div class="post-list-header">
+                <div>{{- post.role -}}</div>
+                {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                <time class="post-list-date">{{- post.date | date: date_format -}}</time>
+            </div>
+
+            <!-- title and excerpt -->
+            <div class="post-list-content">
+                <div class="post-list-title">
+                    {{- post.title | escape -}}
+                </div>
+                {%- if post.excerpt -%}
+                <div class="post-list-excerpt">
+                    <span>{{- post.excerpt -}}</span>
+                    <span>{{- post.location -}}</span>
+                </div>
+                {%- endif -%}
+                <!-- tags -->
+                {%- if post.tags -%}
+                {%- assign tags = post.tags | sort -%}
+                {%- for tag in tags -%}
+                <span class="post-tags">{{- tag -}}</span>
+                {%- endfor -%}
+                {%- endif -%}
+            </div>
+        </a>
+    </li>
+    {%- endif -%}
+    {%- endunless -%}
+    {%- endfor -%}
+</ul>

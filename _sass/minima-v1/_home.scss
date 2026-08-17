@@ -1,0 +1,38 @@
+#home {
+    // layout
+    min-height: 100vh;
+    // flex
+    display: flex;
+    flex-direction: column;
+}
+
+#home .content {
+    // flex
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+#home-main {
+    // layout
+    width: 100%;
+    // flex
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .name {
+        // font
+        font-family: $heading-font-family;
+        @include relative-font-size(4.5);
+    }
+
+    .headline {
+        @include relative-font-size(1.125);
+    }
+
+    .summary {
+        @include relative-font-size(1);
+        max-width: 40em;
+    }
+}

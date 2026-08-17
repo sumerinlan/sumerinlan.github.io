@@ -1,0 +1,10 @@
+# cache
+.DS_Store
+_site/
+.sass-cache/
+.idea
+Gemfile.lock
+
+# content
+*.sketch
+_draft

@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+{%- include heading.html heading=page.title content=page.heading_content excerpt=this.excerpt -%}
+
+{%- if page.wide -%}
+
+<div class="wrapper wrapper-wide wrapper-margin">
+    {{ content }}
+</div>
+
+{%- else -%}
+
+<div class="wrapper wrapper-margin">
+    {{ content }}
+</div>
+
+{%- endif -%}
+
+{%- include footer.html -%}

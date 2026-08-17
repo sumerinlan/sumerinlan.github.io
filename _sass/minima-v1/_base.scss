@@ -1,0 +1,167 @@
+/*
+ * Reset basic elements
+ */
+* {
+    // layout
+    margin: 0;
+    padding: 0;
+}
+/*
+ * Basic styling
+ */
+body {
+    // font
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    @media screen and (max-width: $on-large) {
+        font-size: $base-font-size-small;
+    }
+    font-weight: $base-font-weight;
+    line-height: $base-line-height;
+    letter-spacing: $letter-spacing;
+    // color
+    color: $text-color;
+    background-color: $background-color;
+    // layout
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+p {
+    margin-bottom: $spacing-unit;
+}
+/**
+ * Headings
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    // font
+    font-family: $heading-font-family;
+    font-weight: bold;
+}
+
+h1 {
+    // font
+    @include relative-font-size(2);
+    font-weight: normal;
+}
+
+h2 {
+    // font
+    @include relative-font-size(1.5);
+    font-weight: normal;
+}
+/**
+ * Images
+ */
+img {
+    // layout
+    margin-top: $spacing-unit-vertical * 2;
+    max-width: 100%;
+    vertical-align: middle;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.img-caption {
+    // font
+    @include relative-font-size(0.875);
+    // layout
+    text-align: center;
+    margin-bottom: $spacing-unit-vertical * 2;
+    // color
+    opacity: 0.4;
+}
+/**
+ * Lists
+ */
+ol,
+ul {
+    // layout
+    margin-bottom: $spacing-unit-vertical;
+
+    li {
+        // layout
+        margin-left: $spacing-unit-horizontal;
+
+        ol,
+        ul {
+            // layout
+            margin-top: $spacing-unit-vertical / 2;
+            margin-bottom: $spacing-unit-vertical / 2;
+        }
+    }
+}
+
+.list-style-none {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        margin-left: 0;
+    }
+}
+/**
+ * Links
+ */
+a {
+    // font
+    text-decoration: none;
+    // color
+    &,
+    &:visited {
+        color: $link-color;
+    }
+
+    &:hover {
+        color: $link-color-hover;
+    }
+}
+/**
+ * Code
+ */
+pre {
+    // font
+    white-space: pre-wrap;
+}
+/**
+ * Table
+ */
+table {
+    // layout
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        // layout
+        border-bottom: lighten($link-color, 8%) 1px solid;
+        border-right: lighten($link-color, 16%) 1px solid;
+    }
+
+    td {
+        // layout
+        border-bottom: lighten($link-color, 16%) 1px solid;
+        border-right: lighten($link-color, 24%) 1px solid;
+    }
+
+    td,
+    th {
+        // layout
+        padding: $spacing-unit / 4;
+    }
+
+    tr:nth-child(even) {
+        // color
+        background: lighten($link-color, 27%);
+    }
+}

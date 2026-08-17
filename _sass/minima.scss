@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* Fonts */
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !default;
+$heading-font-family: "Source Serif 4", Georgia, "Times New Roman", serif !default;
+$base-font-size: 16px !default;
+$base-font-size-small: 13px !default;
+$base-font-weight: normal !default;
+@mixin relative-font-size($ratio) {
+    font-size: $base-font-size * $ratio;
+    @media screen and (max-width: $on-large) {
+        font-size: $base-font-size-small * $ratio * 0.9;
+    }
+}
+$letter-spacing: 0;
+/* Spacing */
+$base-line-height: 1.5 !default;
+$spacing-unit: 12px !default;
+$spacing-unit-horizontal: $spacing-unit * 2 !default;
+$spacing-unit-vertical: $spacing-unit !default;
+/* Direction B — Soft editorial palette */
+$accent-color: #C45C3E;
+$accent-color-secondary: #46707D;
+/* Colors */
+$text-color: #2C2C2C !default;
+$background-color: #F5F2ED !default;
+/* Text hierarchy — three tiers used consistently instead of ad-hoc lighten() calls */
+$text-secondary: lighten($text-color, 22%) !default;
+$text-tertiary: lighten($text-color, 40%) !default;
+/* Shared separator color for card borders and row dividers alike */
+$border-color: rgba(0, 0, 0, 0.1) !default;
+/* Customized Colors */
+$header-color: $text-color !default;
+$footer-color: $text-color !default;
+$link-color: $accent-color !default;
+$link-color-hover: lighten($accent-color, 20%) !default;
+$link-color-header: $text-color !default;
+$link-color-header-hover: $accent-color !default;
+/* Tags / pills (need stronger text-vs-background contrast than link-color-hover gives) */
+$tag-text-color: darken($accent-color, 10%) !default;
+$tag-background-color: rgba($accent-color, 0.12) !default;
+/* Responsive */
+$content-width: 61.8vw !default;
+$content-width-small: 90vw !default;
+$on-large: 800px !default;
+/* Import partials */
+@import "minima-v1/base", "minima-v1/layout", "minima-v1/home", "minima-v1/_post.scss", "minima-v1/_notes.scss", "minima-v1/_timeline.scss";

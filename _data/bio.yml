@@ -1,0 +1,103 @@
+-   date:   Feb 2025
+    type:   Full-time
+    group:  2
+    header: Promoted to Senior Software Engineer at Snowflake
+
+-   date:   May 2021
+    type:   Full-time
+    group:  2
+    header: Work at Product Experience team as a Front-End Software Engineer
+    text:   Build data sharing platforms on top of SnowflakeDB to support users in publishing, managing, and discovering data
+
+-   date:   Apr 2021
+    type:   Grad School
+    group:  1
+    header: Graduated from Stanford University
+
+-   date:   Jun 2020
+    type:   Internship
+    group:  2
+    header: Interned at Citadel's Equities Technology team as a Back-End Software Engineer
+    text:   Took full ownership to support and maintain current application. Built and refactored data processing pipelines.
+
+-   date:   Sep 2019
+    type:   Grad School
+    group:  1
+    header: Study Computer Science at Stanford University
+
+-   date:   May 2019
+    type:   Internship
+    group:  2
+    header: Interned at Airbnb Plus as a Full-Stack Software Engineer
+    text:   Experienced full cycle of feature design, implementing and rolling out. Improved appointment scheduling workflow.
+
+-   date:   Feb 2019
+    type:   Internship
+    group:  2
+    header: Interned at Zillow's Mobile team as an iOS Engineer
+    text:   Learned software architecture. Participated in the main filters' re-design and built the initial framework in MVVM pattern.
+
+-   date:   Dec 2018
+    type:   College
+    group:  1
+    header: Graduated from the University of Illinois at Urbana-Champaign
+    text:   With Highest Honors in Computer Science, Summa Cum Laude in College of LAS, and Highest Distinction in Mathematics.
+
+-   date:   Aug 2018
+    type:   Internship
+    group:  2
+    header: Interned at Signal's Data Distribution team as an Back-End Software Engineer
+    text:   Added multiple enhancements in internal tools for animation and visualization.
+
+-   date:   May 2018
+    type:   Internship
+    group:  2
+    header: Interned at Zillow's Mobile team as an iOS Engineer
+    text:   Learned iOS development and worked with cross-function people. Implemented front-end features to increase the shopping experience of buyers and renters.
+
+-   date:   May 2018
+    type:   Scholarship
+    group:  1
+    header: Won "Illinois Engineering Achievement Scholarship" in College of Engineering
+
+-   date:   Mar 2018
+    type:   Scholarship
+    group:  1
+    header: Won "Franz Hohn and J.P. Nash Scholarship" in Department of Computer Science
+
+-   date:   Jun 2017
+    type:   Internship
+    group:  2
+    header: Interned at Mastercard GBSC as an analyst
+    text:   Assisted the team in data cleanup, data analysis, and visualization.
+
+-   date:   Feb 2017
+    type:   Scholarship
+    group:  1
+    header: Won "Elizabeth R. Bennett Scholarship" in Department of Mathematics
+
+-   date:   Sep 2016
+    type:   College
+    group:  1
+    header: Declare a dual degree in Computer Science and Mathematics
+    text:   In Intelligence and Big Data track in Computer Science and with a concentration in Applied Mathematics.
+
+-   date:   Dec 2015
+    type:   Award
+    group:  1
+    header: Won 3rd on campus, top 7% nationwide in William Lowell Putnam Mathematical Competition
+
+-   date:   Oct 2015
+    type:   Award
+    group:  1
+    header: Won 4th on campus, 34th nationwide in the Virginia Tech Regional Math Contest
+
+-   date:   Aug 2015
+    type:   College
+    group:  1
+    header: Studied Mathematics at the University of Illinois at Urbana-Champaign
+
+-   date:   May 2015
+    type:   High School
+    group:  1
+    header: Graduated from Guangdong Olympic School in the Affiliated High School of South China Normal University
