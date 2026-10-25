@@ -9,69 +9,33 @@ site: portfolio
 wide: true
 ---
 
-{%- assign section = "Project"-%}
+{%- assign section = "Project" -%}
 
 {%- comment -%}
 =======================
-Extract all items.
+All projects, newest first, each listed once.
 =======================
 {%- endcomment -%}
 
-{%- assign raw_items = "" -%}
-{%- for post in site.posts -%}
-{%- unless post.exclude -%}
-<!-- {%- if post.type == section -%} -->
-{%- assign items = post.categories | join:"|" | append: "|" -%}
-{%- assign raw_items = raw_items | append: items -%}
-<!-- {%- endif -%} -->
-{%- endunless -%}
-{%- endfor -%}
-{%- assign raw_items = raw_items | split: "|" | sort -%}
+{%- assign projects = site.posts | where: "type", section | where_exp: "post", "post.exclude != true" -%}
+{%- assign items = projects | map: "categories" | join: "|" | split: "|" | uniq | sort -%}
 
 {%- comment -%}
 =======================
-Remove duplicated / invalid.
+Category filter: shown once the script below runs.
 =======================
 {%- endcomment -%}
 
-{%- assign items = "" -%}
-{%- for item in raw_items -%}
-{%- if item != "" -%}
-{%- if items == "" -%}
-{%- assign items = item | split: "|" -%}
-{%- else -%}
-{%- unless items contains item -%}
-{%- assign items = items | join:"|" | append: "|" | append: item | split: "|" -%}
-{%- endunless -%}
-{%- endif -%}
-{%- endif -%}
-{%- endfor -%}
-
-{%- comment -%}
-=======================
-List all items.
-=======================
-{%- endcomment -%}
-
-<div id="items">
+<div id="items" hidden>
+    <button type="button" class="post-filter" data-filter="" aria-pressed="true">All</button>
     {%- for item in items -%}
-    <a href="#{{- item | slugify -}}" class="post-items"> {{- item -}} </a>
+    <button type="button" class="post-filter" data-filter="{{- item | slugify -}}" aria-pressed="false">{{- item -}}</button>
     {%- endfor -%}
 </div>
 
-{%- comment -%}
-=======================
-List all your posts posted with a certain item.
-=======================
-{%- endcomment -%}
-
-{%- for item in items -%}
-<h2 id="{{- item | slugify -}}">{{- item -}}</h2>
 <ul class="list-style-none post-list">
-    {%- for post in site.posts -%}
-    {%- unless post.exclude -%}
-    {%- if post.type == section and post.categories contains item -%}
-    <li class="post-list-block">
+    {%- for post in projects -%}
+    <li class="post-list-block" data-categories="{% for category in post.categories %}{{ category | slugify }} {% endfor %}">
         <a href="{{- post.url -}}">
             <!-- role and date -->
             <div class="post-list-header">
@@ -90,16 +54,55 @@ List all your posts posted with a certain item.
                 {%- endif -%}
                 <!-- tags -->
                 {%- if post.tags -%}
-                {%- assign tags = post.tags | sort -%}
-                {%- for tag in tags -%}
-                <span class="post-tags">{{- tag -}}</span>
-                {%- endfor -%}
+                <div class="post-list-tags">
+                    {%- assign tags = post.tags | sort -%}
+                    {%- for tag in tags -%}
+                    <span class="post-tags">{{- tag -}}</span>
+                    {%- endfor -%}
+                </div>
                 {%- endif -%}
             </div>
         </a>
     </li>
-    {%- endif -%}
-    {%- endunless -%}
     {%- endfor -%}
 </ul>
-{%- endfor -%}
+
+<script>
+    (function () {
+        var bar = document.getElementById('items');
+        var buttons = bar.querySelectorAll('.post-filter');
+        var cards = document.querySelectorAll('.post-list-block');
+
+        function select(slug, updateHash) {
+            var known = false;
+            buttons.forEach(function (button) {
+                if (button.dataset.filter === slug) known = true;
+            });
+            if (!known) slug = '';
+
+            buttons.forEach(function (button) {
+                button.setAttribute('aria-pressed', String(button.dataset.filter === slug));
+            });
+            cards.forEach(function (card) {
+                card.hidden = slug !== '' && card.dataset.categories.split(' ').indexOf(slug) === -1;
+            });
+            if (updateHash) {
+                history.replaceState(null, '', slug ? '#' + slug : location.pathname);
+            }
+        }
+
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                select(button.dataset.filter, true);
+            });
+        });
+
+        // category links on post pages point here as /projects#<category>
+        window.addEventListener('hashchange', function () {
+            select(location.hash.slice(1), false);
+        });
+
+        bar.hidden = false;
+        select(location.hash.slice(1), false);
+    })();
+</script>

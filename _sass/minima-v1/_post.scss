@@ -3,10 +3,6 @@
  */
 .page-content,
 .post-content {
-    // layout
-    margin: $spacing-unit-vertical 0;
-    padding: $spacing-unit-vertical 0;
-
     h1,
     h2,
     h3,
@@ -15,7 +11,7 @@
     h6,
     p {
         // layout
-        margin-bottom: $spacing-unit-vertical;
+        margin-bottom: $space-3;
     }
 
     h1,
@@ -25,8 +21,17 @@
     h5,
     h6 {
         // layout
-        margin-top: $spacing-unit-vertical * 2;
+        margin-top: $space-6;
     }
+
+    > h2:first-child {
+        margin-top: 0;
+    }
+}
+
+// page sections (list groups) are big blocks: space-7 apart
+.page-content h2 {
+    margin-top: $space-7;
 }
 
 /*
@@ -36,52 +41,34 @@
 .post-content {
     ul,
     ol {
-        margin-bottom: $spacing-unit-vertical;
+        margin-bottom: $space-3;
     }
 
     li {
-        margin-bottom: $spacing-unit-vertical / 2;
-        line-height: 1.6;
+        margin-bottom: $space-2;
     }
 
-    strong {
-        color: $tag-text-color;
-    }
-
-    em {
-        color: $text-secondary;
-    }
-
-    // Section breaks (e.g. each role/initiative on a Work post)
+    // Section breaks (e.g. each role/initiative on a Work post) — grouped
+    // by space, not by a rule
     h2 {
-        padding-top: $spacing-unit-vertical * 2;
-        border-top: 1px solid $border-color;
+        margin-top: $space-7;
 
         &:first-child {
-            padding-top: 0;
-            border-top: none;
+            margin-top: 0;
         }
     }
 
-    // Sub-labels within a section (e.g. "Context & Problem") — an eyebrow,
-    // not a second-level headline, so it stays out of the serif hierarchy.
+    // Sub-labels within a section (e.g. "Context & Problem")
     h3 {
-        font-family: $base-font-family;
-        @include relative-font-size(0.8);
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: $tag-text-color;
-        margin-top: $spacing-unit-vertical * 1.5;
-        margin-bottom: $spacing-unit-vertical / 2;
+        margin-top: $space-5;
+        margin-bottom: $space-2;
     }
 
-    // Meta line directly under a section title (role + date range)
-    h2 + p {
-        margin-top: -$spacing-unit-vertical / 2;
-        color: $text-secondary;
-        font-style: italic;
-    }
+}
+
+// Meta line directly under a Work section title (role + date range)
+.post-work h2 + p {
+    color: var(--text-secondary);
 }
 /**
  * Page: Experience & Project Items
@@ -91,43 +78,69 @@
     top: 0;
     z-index: 1;
     // opaque background so sticky content doesn't show through what scrolls beneath it
-    background-color: $background-color;
-    padding: 12px 0;
-    margin: -12px 0 0;
+    background-color: var(--bg);
+    padding: $space-3 0;
+    margin: (-$space-3) 0 $space-4;
+    // flex
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+}
+
+// category filter: plain tag, accent tag when selected
+.post-filter {
+    @include tag;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--text);
+    }
+
+    &[aria-pressed="true"] {
+        @include tag-accent;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+    }
 }
 
 .post-list {
-    // flex
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    // grid — equal-width cards, space-4 apart
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $space-4;
 }
 
 .post-list-block {
     // layout
-    width: 30%;
-    max-width: 480px;
-    @media screen and (max-width: $on-large) {
-        width: 100% !important;
-    }
-    padding: 0;
-    margin: 20px;
-    // flex
-    display: flex;
-    flex-direction: column;
-    // border — flat, line-based, matches row dividers used elsewhere
-    border-radius: 6px;
-    border: 1px solid $border-color;
+    padding: $space-5;
+    // card: surface, thin border, radius-lg, no shadow
+    background-color: var(--surface);
+    border: $border-width solid var(--border);
+    border-radius: $radius-lg;
 
+    // link fills the card so tags can sit on the bottom edge
     a {
-        color: $text-color;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
-        &:hover,
-        &:visited:hover {
-            opacity: 0.4;
+        &,
+        &:visited {
+            color: var(--text);
         }
+
+        &:hover .post-list-title {
+            color: var(--accent);
+        }
+    }
+
+    &:hover {
+        border-color: var(--border-strong);
     }
 
     img {
@@ -136,21 +149,60 @@
 }
 
 .post-list-header {
+    // font
+    @include type-caption;
+    color: var(--text-secondary);
     // layout
-    margin: 15px 20px 10px;
+    margin-bottom: $space-1;
     // flex
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
+    gap: $space-3;
 
     .post-list-date {
         // font
-        @include relative-font-size(0.8);
         text-align: right;
-        color: $text-tertiary;
+        white-space: nowrap;
+    }
+}
+
+.post-list-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .post-list-title {
+        // font
+        @include type-h3;
+        margin-bottom: $space-1;
+    }
+
+    .post-list-excerpt {
+        // font
+        @include type-body-sm;
+        color: var(--text-secondary);
         // flex
-        flex-grow: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        column-gap: $space-3;
+    }
+
+    .post-list-tags {
+        // flex
+        display: flex;
+        flex-wrap: wrap;
+        gap: $space-2;
+        // layout — bottom edge of the card
+        margin-top: auto;
+        padding-top: $space-3;
+
+        .post-tags {
+            margin: 0;
+        }
     }
 }
 
@@ -158,110 +210,65 @@
  * Compact rows (e.g. Work Experience entries) — same content, lighter chrome
  */
 .post-list-compact {
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
+    gap: 0;
 
     .post-list-block {
         // layout
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        // border
-        border-radius: 0;
+        padding: $space-5 0;
+        // no card chrome: rows split by one border, like table rows
+        background-color: transparent;
         border: none;
-        border-bottom: 1px solid $border-color;
+        border-bottom: $border-width solid var(--border);
+        border-radius: 0;
+
+        &:first-child {
+            padding-top: 0;
+        }
 
         &:last-child {
             border-bottom: none;
+            padding-bottom: 0;
         }
-    }
-
-    .post-list-header {
-        margin: 15px 0 10px;
-    }
-
-    .post-list-content {
-        margin: 0 0 15px;
-
-        .post-list-title {
-            @include relative-font-size(1.05);
-        }
-    }
-}
-
-.post-list-content {
-    // font
-    @include relative-font-size(0.8);
-    // layout
-    margin: 10px 20px 15px;
-
-    .post-list-title {
-        // font
-        font-family: $heading-font-family;
-        font-weight: 600;
-        @include relative-font-size(1.2);
-        margin-bottom: 5px;
-    }
-
-    .post-list-excerpt {
-        font-style: italic;
-        color: $text-secondary;
-        margin-bottom: 5px;
-        // flex
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    .post-tags {
-        // font
-        @include relative-font-size(0.6);
     }
 }
 /*
  * Post
  */
 .post-items {
-    // Layout
-    display: inline-block;
-    margin: 0 4px 4px 0;
-    padding: 2px 4px;
-    border-radius: 4px;
-    // Color
+    // tag, accent: categories and the post's links (Demo, Website, ...)
+    @include tag;
+    @include tag-accent;
+    margin: 0 $space-2 $space-2 0;
+
     &,
     &:visited {
-        color: $tag-text-color !important;
-        background-color: $tag-background-color !important;
+        color: var(--accent-text);
     }
 }
 
 a.post-items {
     &:hover {
-        color: white !important;
-        background-color: $accent-color !important;
+        color: var(--on-accent);
+        background-color: var(--accent);
     }
 }
 
 .post-tags {
-    // Layout
-    display: inline-block;
-    margin: 0 4px 4px 0;
-    padding: 2px 4px;
-    // Color
-    & {
-        color: $text-tertiary;
-    }
+    // tag, default: plain attributes (tech stack, topics)
+    @include tag;
+    margin: 0 $space-2 $space-2 0;
 }
 
 .post-meta {
-    // Font
+    // font
+    color: var(--text-secondary);
+    // layout
+    margin-bottom: $space-3;
+
     time {
-        font-weight: bold;
+        font-weight: $weight-medium;
+        color: var(--text);
     }
-    .post-meta-role {
-        color: $text-secondary;
-    }
-    // Layout
-    margin-bottom: $spacing-unit-vertical;
 }

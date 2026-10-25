@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-wide" id="header">
+<div class="wrapper" id="header">
     <a id="site-title" rel="author" href="{{- "/" | relative_url -}}">
         {{- site.title -}}
     </a>
@@ -6,7 +6,7 @@
     <nav id="site-nav">
         {%- for page1 in site.pages -%}
             {%- if page1.in-header and page1.site == page.site and page1.title  -%}
-                <a class="page-link" href="{{- page1.url -}}">{{- page1.title -}}</a>
+                <a class="page-link{% if page1.url == page.url %} selected{% endif %}" href="{{- page1.url -}}">{{- page1.title -}}</a>
             {%- endif -%}
         {%- endfor -%}
     </nav>

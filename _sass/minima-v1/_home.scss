@@ -23,16 +23,28 @@
 
     .name {
         // font
-        font-family: $heading-font-family;
-        @include relative-font-size(4.5);
+        @include type-name;
+        font-size: 64px;
+        line-height: 64px;
+        @media screen and (max-width: $on-large) {
+            font-size: 44px;
+            line-height: 44px;
+        }
+        // layout
+        margin-bottom: $space-4;
     }
 
     .headline {
-        @include relative-font-size(1.125);
+        // font
+        @include type-h2;
+        // layout
+        margin-bottom: $space-3;
     }
 
     .summary {
-        @include relative-font-size(1);
-        max-width: 40em;
+        // color
+        color: var(--text-secondary);
+        // layout
+        max-width: $prose-width;
     }
 }

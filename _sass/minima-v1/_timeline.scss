@@ -3,14 +3,13 @@
  * Work Experience entries, so the two pages read as one system.
  */
 #timeline {
-    margin-top: $spacing-unit-vertical * 2;
-    margin-bottom: $spacing-unit-vertical * 2;
+    margin-top: $space-6;
 }
 
 .timeline-item {
     // layout
-    padding: $spacing-unit-vertical * 1.75 0;
-    border-bottom: 1px solid $border-color;
+    padding: $space-5 0;
+    border-bottom: $border-width solid var(--border);
 
     &:first-child {
         padding-top: 0;
@@ -21,12 +20,15 @@
         padding-bottom: 0;
     }
 
+    // two categories: cat-1 and cat-2, in order
     &.academic .timeline-type {
-        color: $accent-color;
+        background-color: var(--cat-1-soft);
+        color: var(--cat-1-text);
     }
 
     &.industry .timeline-type {
-        color: $accent-color-secondary;
+        background-color: var(--cat-2-soft);
+        color: var(--cat-2-text);
     }
 }
 
@@ -34,36 +36,30 @@
     // layout
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-2;
 }
 
 .timeline-type {
-    // font — small uppercase eyebrow, matches .post-content h3
-    font-family: $base-font-family;
-    @include relative-font-size(0.75);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    @include tag;
 }
 
 .timeline-date {
     // font
-    @include relative-font-size(0.8);
-    color: $text-tertiary;
+    @include type-caption;
+    color: var(--text-secondary);
 }
 
 .timeline-header {
     // font — same treatment as an entry title elsewhere (e.g. .post-list-title)
-    font-family: $heading-font-family;
-    font-weight: 600;
-    @include relative-font-size(1.05);
+    @include type-h3;
 }
 
 .timeline-text {
     // font
-    @include relative-font-size(0.9);
-    color: $text-secondary;
+    @include type-body-sm;
+    color: var(--text-secondary);
     // layout
-    margin-top: 6px;
+    margin-top: $space-1;
 }

@@ -11,30 +11,29 @@
  */
 body {
     // font
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    @media screen and (max-width: $on-large) {
-        font-size: $base-font-size-small;
-    }
-    font-weight: $base-font-weight;
-    line-height: $base-line-height;
-    letter-spacing: $letter-spacing;
+    font-family: $font-sans;
+    @include type-body;
+    -webkit-font-smoothing: antialiased;
     // color
-    color: $text-color;
-    background-color: $background-color;
+    color: var(--text);
+    background-color: var(--bg);
     // layout
     min-height: 100vh;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
 }
 
 p {
-    margin-bottom: $spacing-unit;
+    margin-bottom: $space-3;
+}
+
+// the hidden attribute wins over any display set by a class
+[hidden] {
+    display: none !important;
+}
+
+time {
+    font-variant-numeric: tabular-nums;
 }
 /**
  * Headings
@@ -46,41 +45,46 @@ h4,
 h5,
 h6 {
     // font
-    font-family: $heading-font-family;
-    font-weight: bold;
+    font-weight: $weight-semibold;
 }
 
 h1 {
-    // font
-    @include relative-font-size(2);
-    font-weight: normal;
+    @include type-h1;
 }
 
 h2 {
-    // font
-    @include relative-font-size(1.5);
-    font-weight: normal;
+    @include type-h2;
+}
+
+h3 {
+    @include type-h3;
+}
+
+strong,
+b {
+    font-weight: $weight-semibold;
 }
 /**
  * Images
  */
 img {
     // layout
-    margin-top: $spacing-unit-vertical * 2;
+    margin-top: $space-5;
     max-width: 100%;
     vertical-align: middle;
-    -o-object-fit: cover;
     object-fit: cover;
+    border-radius: $radius-lg;
 }
 
 .img-caption {
     // font
-    @include relative-font-size(0.875);
+    @include type-body-sm;
     // layout
     text-align: center;
-    margin-bottom: $spacing-unit-vertical * 2;
+    margin-top: $space-2;
+    margin-bottom: $space-5;
     // color
-    opacity: 0.4;
+    color: var(--text-secondary);
 }
 /**
  * Lists
@@ -88,17 +92,17 @@ img {
 ol,
 ul {
     // layout
-    margin-bottom: $spacing-unit-vertical;
+    margin-bottom: $space-3;
 
     li {
         // layout
-        margin-left: $spacing-unit-horizontal;
+        margin-left: $space-5;
 
         ol,
         ul {
             // layout
-            margin-top: $spacing-unit-vertical / 2;
-            margin-bottom: $spacing-unit-vertical / 2;
+            margin-top: $space-1;
+            margin-bottom: $space-1;
         }
     }
 }
@@ -120,19 +124,55 @@ a {
     // color
     &,
     &:visited {
-        color: $link-color;
+        color: var(--accent);
     }
 
     &:hover {
-        color: $link-color-hover;
+        color: var(--accent-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+        border-radius: $radius-sm;
     }
 }
 /**
  * Code
  */
+code {
+    @include type-code;
+    padding: 1px $space-1;
+    border-radius: $radius-sm;
+    background-color: var(--surface-sunken);
+}
+
 pre {
     // font
     white-space: pre-wrap;
+    // layout
+    margin-bottom: $space-3;
+    padding: $space-3 $space-4;
+    border-radius: $radius-md;
+    background-color: var(--surface-sunken);
+
+    code {
+        padding: 0;
+        background: none;
+    }
+}
+/**
+ * Quotes and rules
+ */
+blockquote {
+    margin: 0 0 $space-3 $space-4;
+    color: var(--text-secondary);
+}
+
+hr {
+    margin: $space-6 0;
+    border: none;
+    border-top: $border-width solid var(--border);
 }
 /**
  * Table
@@ -140,28 +180,32 @@ pre {
 table {
     // layout
     width: 100%;
+    margin-bottom: $space-3;
     border-collapse: collapse;
+    // font
+    @include type-body-sm;
+    font-variant-numeric: tabular-nums;
 
     th {
+        // font
+        @include type-caption;
+        text-align: left;
+        // color
+        color: var(--text-secondary);
+        background-color: var(--surface-sunken);
         // layout
-        border-bottom: lighten($link-color, 8%) 1px solid;
-        border-right: lighten($link-color, 16%) 1px solid;
+        padding: $space-2 $space-3;
+        border-bottom: $border-width solid var(--border-strong);
     }
 
     td {
         // layout
-        border-bottom: lighten($link-color, 16%) 1px solid;
-        border-right: lighten($link-color, 24%) 1px solid;
+        padding: 10px $space-3;
+        border-bottom: $border-width solid var(--border);
+        vertical-align: top;
     }
 
-    td,
-    th {
-        // layout
-        padding: $spacing-unit / 4;
-    }
-
-    tr:nth-child(even) {
-        // color
-        background: lighten($link-color, 27%);
+    tbody tr:last-child td {
+        border-bottom: none;
     }
 }

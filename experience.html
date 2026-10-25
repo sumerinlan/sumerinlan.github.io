@@ -6,7 +6,6 @@ permalink: /experience
 # page info
 in-header: true
 site: portfolio
-wide: true
 ---
 
 <h2>Full-time Jobs</h2>
@@ -39,10 +38,12 @@ wide: true
                 {%- endif -%}
                 <!-- tags -->
                 {%- if post.tags -%}
-                {%- assign tags = post.tags | sort -%}
-                {%- for tag in tags -%}
-                <span class="post-tags">{{- tag -}}</span>
-                {%- endfor -%}
+                <div class="post-list-tags">
+                    {%- assign tags = post.tags | sort -%}
+                    {%- for tag in tags -%}
+                    <span class="post-tags">{{- tag -}}</span>
+                    {%- endfor -%}
+                </div>
                 {%- endif -%}
             </div>
         </a>
@@ -82,10 +83,12 @@ wide: true
                 {%- endif -%}
                 <!-- tags -->
                 {%- if post.tags -%}
-                {%- assign tags = post.tags | sort -%}
-                {%- for tag in tags -%}
-                <span class="post-tags">{{- tag -}}</span>
-                {%- endfor -%}
+                <div class="post-list-tags">
+                    {%- assign tags = post.tags | sort -%}
+                    {%- for tag in tags -%}
+                    <span class="post-tags">{{- tag -}}</span>
+                    {%- endfor -%}
+                </div>
                 {%- endif -%}
             </div>
         </a>
