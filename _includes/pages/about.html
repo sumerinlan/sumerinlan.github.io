@@ -1,0 +1,28 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign header_key = "header_" | append: page.lang -%}
+{%- assign text_key = "text_" | append: page.lang -%}
+{% capture bio %}{% include bio.md %}{% endcapture %}
+{{ bio | markdownify }}
+
+<div id="timeline">
+    {% for item in site.data.bio %}
+    {% if item.type == "Full-time" or item.type == "Grad School" or item.type == "College" or item.type == "High School" %}
+    <div class="timeline-item {% if item.group == 1 %}academic{% else %}industry{% endif %}">
+        {%- assign icon = site.data.icons.timeline[item.type] -%}
+        <span class="timeline-icon">{% include icon.html name=icon %}</span>
+        <div class="timeline-header-row">
+            <span class="timeline-type">{{- t.timeline_types[item.type] | default: item.type -}}</span>
+            <time class="timeline-date">{{- item.date | date: t.date_month -}}</time>
+        </div>
+        <div class="timeline-header">
+            {{- item[header_key] | default: item.header -}}
+        </div>
+        {%- if item.text -%}
+        <div class="timeline-text">
+            {{- item[text_key] | default: item.text -}}
+        </div>
+        {%- endif -%}
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+</div>

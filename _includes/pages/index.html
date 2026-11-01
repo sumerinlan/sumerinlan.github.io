@@ -1,0 +1,26 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign headline = site.headline -%}
+{%- assign description = site.description -%}
+{%- if page.lang == "zh" -%}
+{%- assign headline = site.headline_zh -%}
+{%- assign description = site.description_zh -%}
+{%- endif -%}
+<div id="home">
+    {%- include header.html -%}
+
+    <div class="wrapper content">
+        <div id="home-main">
+            <div class="name">{{- site.author -}}</div>
+            <div class="headline">{{- headline -}}</div>
+            <p class="summary">
+                {{ description }}
+            </p>
+            <div class="actions">
+                <a class="button button-primary" href="{%- include page-url.html ref="experience" -%}">{{- t.btn_experience -}}</a>
+                <a class="button" href="{%- include page-url.html ref="projects" -%}">{{- t.btn_projects -}}</a>
+            </div>
+        </div>
+    </div>
+
+    {%- include footer.html -%}
+</div>

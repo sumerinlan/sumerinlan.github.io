@@ -1,0 +1,6 @@
+---
+layout: null
+lang: zh
+ref: search
+---
+{% include search-index.json %}

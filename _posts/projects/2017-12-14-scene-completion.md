@@ -4,8 +4,8 @@ layout: post
 title: Image Completion
 date: 2017-12-14 -0600
 # page info
-site: portfolio
 type: Project
+group: UIUC
 categories: [Computational Photography]
 tags: [Matlab]
 # project info
@@ -13,23 +13,23 @@ role: Developer
 report: http://xwu68.web.engr.illinois.edu/cs445/project/index.html
 source_code: https://github.com/sumerinlan/Image-Completion
 # content info
-excerpt: Scene Completion With Large-scale Image Data Set
-math: true
+excerpt: Scene completion with a large-scale image dataset
+excerpt_zh: 用大规模图片数据集做场景补全
 ---
 
 ## Overview
 
-Our project is based on Hays et al. 2008 paper [Scene Completion Using Millions of Photographs](http://graphics.cs.cmu.edu/projects/scene-completion/){:target="\_blank"}. In this project, an image database with more than four hundred thousand photos will be set up, and the algorithm will be able to patch up the holes of an input image with images both structurally and semantically similar.
+Our project is based on the Hays et al. 2007 paper [Scene Completion Using Millions of Photographs](http://graphics.cs.cmu.edu/projects/scene-completion/){:target="\_blank"}. In this project, an image database with more than four hundred thousand photos will be set up, and the algorithm will be able to patch up the holes of an input image with images both structurally and semantically similar.
 
 ## Database Setup
 
-We use Flicker API to download large sets of images online. We select several categories of images based on keywords such as _Chicago_ and _lake_. Since Flicker API limit is to return only 400 images per API request, we handle this issue by making multiple API calls according to the date the images were uploaded. During the downloading process, we notice that with such a large amount of data, it takes more than half a month to download all the images. To boost the download speed, we design and implement a multithread downloader in Python. Also, to avoid having invalid or useless images, we prune out all the photos smaller than 800 \* 600 px or have an edge larger than 10000 px. Finally, we managed to download around 450,000 images in parallel within 30 hours and used these images as the pool for image completion.
+We use the Flickr API to download large sets of images online. We select several categories of images based on keywords such as _Chicago_ and _lake_. Since the Flickr API returns only 400 images per request, we handle this issue by making multiple API calls according to the date the images were uploaded. During the downloading process, we notice that with such a large amount of data, it takes more than half a month to download all the images. To boost the download speed, we design and implement a multithread downloader in Python. Also, to avoid having invalid or useless images, we prune out all the photos smaller than 800 \* 600 px or with an edge larger than 10000 px. Finally, we managed to download around 450,000 images in parallel within 30 hours and used these images as the pool for image completion.
 
 After setting up a large image database, our algorithm will first select the best semantically matching scenes and perform traditional template matching.
 
 ## Semantic Structure Matching
 
-To implement a perfect image completion and avoid the long searching time, we need to find a group of candidate images that match the scenes in input image semantically. To find semantically similar images, we used the GIST descriptor to model the images. GIST descriptor is described in Oliva et al. 2001 paper [Modeling the shape of the scene: a holistic representation of the spatial envelope](http://cvcl.mit.edu/Papers/IJCV01-Oliva-Torralba.pdf){:target="\_blank"}. GIST is a low-dimensional representation of an image, where some perceptual dimensions such as openness, roughness and expansion are considered. Images with scenes in the same categories will get close GIST descriptors.
+To implement a perfect image completion and avoid the long searching time, we need to find a group of candidate images that match the scenes in the input image semantically. To find semantically similar images, we used the GIST descriptor to model the images. The GIST descriptor is described in the Oliva et al. 2001 paper [Modeling the shape of the scene: a holistic representation of the spatial envelope](http://cvcl.mit.edu/Papers/IJCV01-Oliva-Torralba.pdf){:target="\_blank"}. GIST is a low-dimensional representation of an image, where some perceptual dimensions such as openness, roughness and expansion are considered. Images with scenes in the same categories will get close GIST descriptors.
 
 We use a Python library called [Lear GIST python](https://github.com/tuttieee/lear-gist-python){:target="\_blank"}, which implements the GIST descriptor in the paper.
 
@@ -37,7 +37,7 @@ First, we calculate the GIST descriptor for every image using a multiprocess alg
 
 Second, we calculate a weighted GIST descriptor for the to-be-filled image with its mask for the hole. The GIST is weighted by the proportion of valid pixels (not in the hole) in every spatial bin.
 
-Finally, we calculate the L1 distance between the GIST for the input image and the GIST for images in the database. We also calculate the SSD (Sum of Square Distance) between the input image and images in the database. Then we assign weights to these two attributes and pick 20 images that have the smallest values as input images for the next step.
+Finally, we calculate the L1 distance between the GIST for the input image and the GIST for images in the database. We also calculate the SSD (Sum of Squared Differences) between the input image and images in the database. Then we assign weights to these two attributes and pick 20 images that have the smallest values as input images for the next step.
 
 ## Local Context Matching
 
@@ -51,7 +51,7 @@ When the program starts, we can manually select the area to erase or input the i
 
 ### Cut Seam Finding
 
-To find the minimum-cost path around the irregular border, we first find the smallest rectangle containing the irregular hole, then add 80 to each of the four edges to get a larger rectangle as well and minus 80 to each border, to get a smaller rectangle. We regard the difference between the large and small rectangles (the width of the border is 160 in our case) as local context, i.e., the overlapping region of the existing and sampled patch.
+To find the minimum-cost path around the irregular border, we first find the smallest rectangle containing the irregular hole, then extend each of the four edges by 80 to get a larger rectangle, and shrink each edge by 80 to get a smaller rectangle. We regard the difference between the large and small rectangles (the width of the border is 160 in our case) as local context, i.e., the overlapping region of the existing and sampled patch.
 
 Note that the blue rectangle is the smallest rectangle containing the irregular hole. We perform the graph cut between the yellow rectangle and the orange rectangle.
 
@@ -61,9 +61,9 @@ We apply the above process to all four edges (top, bottom, left, right). Note th
 
 ### Poisson Blending
 
-After we get the mask, we use the standard `poissonBlend` by **Project 3** on the whole image region to compose the image.
+After we get the mask, we use the standard `poissonBlend` from **Project 3** on the whole image region to compose the image.
 
-Note that different from **Project 3** which allows the user to select mask region, our mask is computed by the cut, so there might be isolated pixels or regions with weird border. Since Poisson Blending is based in neighboring regions, before outputting mask in the process above, we smooth the mask a little bit.
+Note that different from **Project 3** which allows the user to select mask region, our mask is computed by the cut, so there might be isolated pixels or regions with weird border. Since Poisson Blending is based on neighboring regions, before outputting mask in the process above, we smooth the mask a little bit.
 
 We use the Poisson Blending formula to solve blending constraints.
 
@@ -141,6 +141,6 @@ James Hays, Alexei A. Efros. Scene Completion Using Millions of Photographs. ACM
 
 Oliva, A. & Torralba, A. International Journal of Computer Vision (2001) 42: 145. <https://doi.org/10.1023/A:1011139631724>{:target="\_blank"}
 
-[GIST descriptor](https://github.com/tuttieee/lear-gist-python){:target="\_blank"} by tuttieee from Github
+[GIST descriptor](https://github.com/tuttieee/lear-gist-python){:target="\_blank"} by tuttieee from GitHub
 
-Codes from [Project 2](https://courses.engr.illinois.edu/cs445/fa2017/projects/quilting/ComputationalPhotography_ProjectQuilting.html){:target="\_blank"} and [Project 3](https://courses.engr.illinois.edu/cs445/fa2017/projects/gradient/ComputationalPhotography_ProjectGradient.html){:target="\_blank"}.
+Code from [Project 2](https://courses.engr.illinois.edu/cs445/fa2017/projects/quilting/ComputationalPhotography_ProjectQuilting.html){:target="\_blank"} and [Project 3](https://courses.engr.illinois.edu/cs445/fa2017/projects/gradient/ComputationalPhotography_ProjectGradient.html){:target="\_blank"}.

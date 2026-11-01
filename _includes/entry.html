@@ -1,0 +1,11 @@
+{%- comment -%}
+Sets entry: the post whose facts (title, dates, role, tags, launches) this
+page shows. For a translation in _zh that is its `source` post; otherwise
+the page itself.
+{%- endcomment -%}
+{%- if page.source -%}
+{%- assign entry_path = "_posts/" | append: page.source | append: ".md" -%}
+{%- assign entry = site.posts | where: "path", entry_path | first -%}
+{%- else -%}
+{%- assign entry = page -%}
+{%- endif -%}

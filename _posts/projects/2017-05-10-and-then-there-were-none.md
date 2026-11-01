@@ -4,20 +4,21 @@ layout: post
 title: And Then There Were None?
 date: 2017-05-10 -0600
 # page info
-site: portfolio
 type: Project
+group: UIUC
 categories: [Games]
 tags: [C#, Unity]
 # project info
 role: VR Developer
 # content info
-excerpt: A Movie-based VR Game with Immersive Experience
+excerpt: A VR mystery game based on Agatha Christie's novel
+excerpt_zh: 根据阿加莎·克里斯蒂小说改编的 VR 推理游戏
 ---
 
-We write the game in recognition of the mystery novel **And Then There Were None** written by Agatha Christie. However, we give the user an opportunity to change the tragic ending of the story. You are trapped on a cruise with several other people, one of which is a serial killer. Given a poem as a clue, you need to find certain objects to prevent the death of other people and yourself, and eventually leave the cruise. The game allows users to have first person perspective experience solving riddles, looking for objects and saving people’s lives.
+This VR game is based on Agatha Christie's mystery novel **And Then There Were None**. Unlike the novel, the game lets the player change the tragic ending. The player is trapped on a cruise ship with several other people, and one of them is a serial killer. A poem gives the clues. The player must find certain objects to save the others and themselves, and then leave the ship.
 
-Each level is a scene for players to find certain objects in a limited time. The player cannot physically move with the headset but can use the handler to move the character within the scene. The player can rotate his/her head to look around in the room. Some objects can be triggered to open. Player actions (opening boxes, picking up objects, etc.) are represented and recognized by staring at a region and using a handler.
+Each level is one scene, and the player has a limited time to find the objects. The player cannot walk around with the headset on. Instead, they move the character with the hand controller and turn their head to look around. Some objects can be opened. To open a box or pick up an object, the player looks at it and uses the controller.
 
-The player will be given a related line of poems and instructions about possible objects to find, in the form of a monologue, for each level. The player then explores the given scene to complete the task using the headset and the handler. If the player finishes the job of solving the riddle and finding objects, he will get a message that he has passed the level and start the next level. If he successfully saves all lives on the cruise, the game will end, and the player wins.
+Each level starts with a monologue that gives a line of the poem and hints about what to find. When the player solves the riddle and finds the objects, the game confirms it and the next level starts. If the player saves everyone on the ship, they win.
 
-The constructions of the scenes and interactions taken by the player are designed to be user-friendly and comforting. For example, we decided not to include the unnecessary zoom-in functionality to decrease the potential feeling of sickness. The length of one round of the game will be no more than 10-15 minutes. The construction of the scene will be 3D based, setting the location, rotation, and transformation of the objects in 3D space. To visualize conversations, we use Dialogue System, which is not popular in use and offers scarce resources but brings immersion. We also use animation to enhance the VR experience.
+We designed the scenes and controls to be comfortable. For example, we left out zooming to reduce motion sickness. One round takes 10 to 15 minutes. The scenes are built in 3D, with each object placed and rotated in 3D space. Conversations use Dialogue System, a less common tool with few learning resources, because it makes the story more immersive. Animations add to the VR experience.

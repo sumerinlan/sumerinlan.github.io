@@ -1,0 +1,113 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign section = "Project" -%}
+
+{%- comment -%}
+=======================
+All projects, newest first, each listed once.
+=======================
+{%- endcomment -%}
+
+{%- assign projects = site.posts | where: "type", section | where_exp: "post", "post.exclude != true" -%}
+{%- assign items = projects | map: "categories" | join: "|" | split: "|" | uniq | sort -%}
+
+{%- comment -%}
+=======================
+Category filter: shown once the script below runs.
+=======================
+{%- endcomment -%}
+
+<div id="items" hidden>
+    <button type="button" class="post-filter" data-filter="" aria-pressed="true">{{- t.filter_all -}}</button>
+    {%- for item in items -%}
+    <button type="button" class="post-filter" data-filter="{{- item | slugify -}}" aria-pressed="false">{%- assign icon = site.data.icons.categories[item] -%}{%- include icon.html name=icon -%}{{- t.categories[item] | default: item -}}</button>
+    {%- endfor -%}
+</div>
+
+{%- comment -%}
+=======================
+Projects grouped by their `group` (see _data/project_groups.yml).
+=======================
+{%- endcomment -%}
+
+{%- comment -%}
+A project folds under "Earlier projects" when its group has `archive: true`
+or the project itself has `archive: true`.
+{%- endcomment -%}
+{%- assign current = projects | where_exp: "post", "post.archive != true" -%}
+{%- assign earlier = projects | where: "archive", true -%}
+{%- assign shown = 0 -%}
+
+{%- for group in site.data.project_groups -%}
+{%- unless group.archive -%}
+{%- assign members = current | where: "group", group.id -%}
+{%- assign shown = shown | plus: members.size -%}
+{% include project-group.html group=group projects=current %}
+{%- endunless -%}
+{%- endfor -%}
+
+{%- assign archived = projects.size | minus: shown -%}
+{%- if archived > 0 -%}
+<details class="post-archive">
+    <summary>{{- t.projects_earlier }} <span class="post-archive-count">{{- archived -}}</span></summary>
+    {%- for group in site.data.project_groups -%}
+    {%- if group.archive -%}
+    {% include project-group.html group=group projects=projects level=3 %}
+    {%- else -%}
+    {% include project-group.html group=group projects=earlier level=3 %}
+    {%- endif -%}
+    {%- endfor -%}
+</details>
+{%- endif -%}
+
+<script>
+    (function () {
+        var bar = document.getElementById('items');
+        var buttons = bar.querySelectorAll('.post-filter');
+        var cards = document.querySelectorAll('.post-list-block');
+        var groups = document.querySelectorAll('.post-group');
+        var archive = document.querySelector('.post-archive');
+
+        function select(slug, updateHash) {
+            var known = false;
+            buttons.forEach(function (button) {
+                if (button.dataset.filter === slug) known = true;
+            });
+            if (!known) slug = '';
+
+            buttons.forEach(function (button) {
+                button.setAttribute('aria-pressed', String(button.dataset.filter === slug));
+            });
+            cards.forEach(function (card) {
+                card.hidden = slug !== '' && card.dataset.categories.split(' ').indexOf(slug) === -1;
+            });
+            // a group with no card left in this category is hidden too
+            groups.forEach(function (group) {
+                group.hidden = !group.querySelector('.post-list-block:not([hidden])');
+            });
+            // earlier projects open on their own when a filter matches only there
+            if (archive) {
+                var left = archive.querySelectorAll('.post-list-block:not([hidden])').length;
+                archive.querySelector('.post-archive-count').textContent = left;
+                archive.hidden = left === 0;
+                if (slug) archive.open = !document.querySelector('.post-group:not(.post-archive .post-group):not([hidden])');
+            }
+            if (updateHash) {
+                history.replaceState(null, '', slug ? '#' + slug : location.pathname);
+            }
+        }
+
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                select(button.dataset.filter, true);
+            });
+        });
+
+        // category links on post pages point here as /projects#<category>
+        window.addEventListener('hashchange', function () {
+            select(location.hash.slice(1), false);
+        });
+
+        bar.hidden = false;
+        select(location.hash.slice(1), false);
+    })();
+</script>

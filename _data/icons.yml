@@ -1,0 +1,15 @@
+# Icon (an id in assets/icons.svg) for each project category and timeline type
+categories:
+    Computational Photography: camera
+    Data Visualization:        chart-bar
+    Games:                     device-gamepad-2
+    Machine Learning:          sparkles
+    Mobile Development:        device-mobile
+    UX Design:                 palette
+    Web Development:           code
+    Misc:                      dots
+timeline:
+    Full-time:   briefcase
+    Grad School: school
+    College:     school
+    High School: school

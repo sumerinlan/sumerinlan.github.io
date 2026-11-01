@@ -1,0 +1,31 @@
+{%- comment -%}
+Launches by year: the shipped items of `entry` (the post, or a translation's
+source), colored by its shipped_themes. A theme links to the section of the
+page that covers it; translations keep the same section ids.
+{%- endcomment -%}
+{%- include entry.html -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign name_key = "name_" | append: page.lang -%}
+{%- assign years = entry.shipped | map: "year" | uniq -%}
+<figure class="shipped">
+    <figcaption class="shipped-title">{{- t.shipped_title -}}</figcaption>
+    <ol class="shipped-years">
+        {%- for year in years -%}
+        <li class="shipped-year">
+            <div class="shipped-year-label">{{- year -}}</div>
+            <ul class="shipped-items">
+                {%- assign items = entry.shipped | where: "year", year -%}
+                {%- for item in items -%}
+                {%- assign theme = entry.shipped_themes | where: "id", item.theme | first -%}
+                <li><a class="shipped-item is-{{ item.theme }}" href="#{{ theme.section }}">{{- item.name -}}</a></li>
+                {%- endfor -%}
+            </ul>
+        </li>
+        {%- endfor -%}
+    </ol>
+    <ul class="shipped-legend">
+        {%- for theme in entry.shipped_themes -%}
+        <li class="is-{{ theme.id }}">{{- theme[name_key] | default: theme.name -}}</li>
+        {%- endfor -%}
+    </ul>
+</figure>

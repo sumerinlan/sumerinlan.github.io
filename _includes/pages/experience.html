@@ -1,0 +1,8 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+<h2>{{- t.exp_fulltime -}}</h2>
+
+{% include experience-list.html type="Work" %}
+
+<h2>{{- t.exp_earlier -}}</h2>
+
+{% include experience-list.html type="Internship" %}

@@ -1,0 +1,5 @@
+# Header links, in order: the `ref` of each page. The header shows the page
+# with that ref in the current language.
+- about
+- experience
+- projects

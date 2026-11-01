@@ -1,0 +1,19 @@
+{%- comment -%}
+The other language of this page. Sets lang (this page's), alt_lang,
+alt_page (the same page in alt_lang, if any) and alt_url (its URL).
+A page without alt_page exists in one language only. Pages pair by `ref`; a post pairs with the
+_zh translation whose `source` is that post.
+{%- endcomment -%}
+{%- assign lang = page.lang | default: site.lang -%}
+{%- if lang == "zh" -%}{%- assign alt_lang = "en" -%}{%- else -%}{%- assign alt_lang = "zh" -%}{%- endif -%}
+{%- assign alt_page = nil -%}
+{%- if page.source -%}
+{%- include entry.html -%}
+{%- assign alt_page = entry -%}
+{%- elsif page.collection == "posts" -%}
+{%- include translation.html post=page lang=alt_lang -%}
+{%- assign alt_page = translation -%}
+{%- elsif page.ref -%}
+{%- assign alt_page = site.pages | where: "ref", page.ref | where: "lang", alt_lang | first -%}
+{%- endif -%}
+{%- assign alt_url = alt_page.url | relative_url -%}

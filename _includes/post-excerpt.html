@@ -1,0 +1,4 @@
+{%- comment -%}The excerpt of another post, for pages that list their parts. include.post is the same id post_url takes, e.g. projects/2017-09-18-cs445-project-1.{%- endcomment -%}
+{%- assign path = "_posts/" | append: include.post | append: ".md" -%}
+{%- assign entry = site.posts | where: "path", path | first -%}
+<p class="post-excerpt">{{- entry.excerpt -}}</p>

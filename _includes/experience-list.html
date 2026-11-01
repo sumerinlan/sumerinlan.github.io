@@ -1,0 +1,44 @@
+{%- comment -%}
+Experience entries of one type (include.type), newest first.
+{%- endcomment -%}
+{%- assign excerpt_key = "excerpt_" | append: page.lang -%}
+<ul class="list-style-none post-list post-list-rows">
+    {%- for post in site.posts -%}
+    {%- unless post.exclude -%}
+    {%- if post.type == include.type -%}
+    {%- include translation.html post=post lang=page.lang -%}
+    <li class="post-list-block">
+        <a href="{{- translation.url | default: post.url -}}">
+            <div class="post-list-header">
+                <div>{%- include role.html role=post.role -%}</div>
+                <time class="post-list-date">
+                    {%- include icon.html name="calendar" -%}
+                    {%- include date-range.html post=post -%}
+                </time>
+            </div>
+            <div class="post-list-content">
+                <div class="post-list-title">
+                    {{- post.title | escape -}}
+                    <span class="post-list-arrow" aria-hidden="true">→</span>
+                </div>
+                {%- if post.excerpt -%}
+                <div class="post-list-excerpt">
+                    <span>{{- post[excerpt_key] | default: post.excerpt -}}</span>
+                    <span class="post-list-location">{%- include icon.html name="map-pin" -%}{{- post.location -}}</span>
+                </div>
+                {%- endif -%}
+                {%- if post.tags -%}
+                <div class="post-list-tags">
+                    {%- assign tags = post.tags | sort -%}
+                    {%- for tag in tags -%}
+                    <span class="post-tags">{{- tag -}}</span>
+                    {%- endfor -%}
+                </div>
+                {%- endif -%}
+            </div>
+        </a>
+    </li>
+    {%- endif -%}
+    {%- endunless -%}
+    {%- endfor -%}
+</ul>

@@ -1,15 +1,16 @@
 <div id="heading">
     {%- include header.html -%}
 
-    <div class="wrapper {% if page.wide %}wrapper-wide{% endif %} content">
+    <div class="wrapper content">
 
         <div id="heading-title">{{- include.heading -}}</div>
 
         {%- if include.content -%}
         {{- include.content -}}
         {%- else -%}
+        {%- assign excerpt_key = "excerpt_" | append: page.lang -%}
         <div id='heading-excerpt'>
-            {{-page.excerpt-}}
+            {{- entry[excerpt_key] | default: entry.excerpt -}}
         </div>
         {%- endif -%}
 

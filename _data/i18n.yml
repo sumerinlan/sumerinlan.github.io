@@ -1,0 +1,101 @@
+# Interface text by language (page.lang). Each template reads it as
+#   {% assign t = site.data.i18n[page.lang] %}
+# Dates use Liquid's date format. Category, type and role names fall back
+# to the English name when a language has no entry for them.
+en:
+    switch_label:       中文
+    switch_unavailable: Only in English
+    btn_experience:     Work Experience
+    btn_projects:       Projects
+    exp_fulltime:       Full-time Jobs
+    exp_earlier:        Earlier Experience
+    filter_all:         All
+    projects_earlier:   Earlier projects
+    date_day:           "%b %-d, %Y"
+    date_month:         "%b %Y"
+    # a range inside one year, e.g. "May–Aug 2018"
+    date_span_start:    "%b"
+    date_span_end:      "%b %Y"
+    date_present:       Present
+    search_button:      Search
+    search_dialog:      Search the site
+    search_placeholder: Search work and projects
+    search_filters:     Filter results
+    search_work:        Work
+    search_projects:    Projects
+    search_empty:       No matches.
+    search_kinds:
+        Work:       Work
+        Internship: Internship
+        Project:    Project
+        Section:    Section
+    copyright:          All Rights Reserved.
+    shipped_title:      Launches I worked on
+    section_link:       Link to this section
+    link_demo:          Demo
+    link_website:       Website
+    link_report:        Report
+    link_source_code:   Source code
+
+zh:
+    switch_label:       English
+    switch_unavailable: 只有中文版
+    btn_experience:     工作经历
+    btn_projects:       项目
+    exp_fulltime:       全职工作
+    exp_earlier:        早期经历
+    filter_all:         全部
+    projects_earlier:   更早的项目
+    date_day:           "%Y 年 %-m 月 %-d 日"
+    date_month:         "%Y 年 %-m 月"
+    date_span_start:    "%Y 年 %-m"
+    date_span_end:      "%-m 月"
+    date_present:       至今
+    search_button:      搜索
+    search_dialog:      搜索本站
+    search_placeholder: 搜索工作和项目
+    search_filters:     筛选结果
+    search_work:        工作
+    search_projects:    项目
+    search_empty:       没有找到结果。
+    search_kinds:
+        Work:       工作
+        Internship: 实习
+        Project:    项目
+        Section:    章节
+    copyright:          保留所有权利。
+    shipped_title:      参与上线的功能
+    section_link:       链接到本节
+    link_demo:          Demo
+    link_website:       网站
+    link_report:        报告
+    link_source_code:   源代码
+    timeline_types:
+        Full-time:   全职
+        Grad School: 研究生
+        College:     本科
+        High School: 高中
+    categories:
+        Computational Photography: 计算摄影
+        Data Visualization:        数据可视化
+        Games:                     游戏
+        Machine Learning:          机器学习
+        Mobile Development:        移动开发
+        UX Design:                 UX 设计
+        Web Development:           Web 开发
+        Misc:                      其他
+    # A role not listed whole is split at ", " and each part looked up.
+    roles:
+        Analyst:                 分析师
+        Creator:                 作者
+        Designer:                设计
+        Developer:               开发
+        Front-end Web Developer: 前端开发
+        UX Designer:             UX 设计
+        VR Developer:            VR 开发
+        Web Developer:           Web 开发
+        "Software Engineer, Back-End":   软件工程师（后端）
+        "Software Engineer, Full-Stack": 软件工程师（全栈）
+        "Software Engineer, iOS":        软件工程师（iOS）
+        "Software Engineer › Senior Software Engineer": 软件工程师 › 高级软件工程师
+    role_separator:     、

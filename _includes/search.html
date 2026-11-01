@@ -1,0 +1,137 @@
+{%- comment -%}
+Site search: a dialog opened by ⌘K / Ctrl+K or the header button.
+Items come from /search.json; every word typed must match an item.
+{%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+<dialog id="search" aria-label="{{- t.search_dialog -}}">
+    <div class="search-box">
+        <div class="search-input-row">
+            {%- include icon.html name="search" -%}
+            <input id="search-input" type="search" placeholder="{{- t.search_placeholder -}}" autocomplete="off" spellcheck="false" aria-controls="search-results">
+            <kbd>esc</kbd>
+        </div>
+        <div class="search-filters" role="group" aria-label="{{- t.search_filters -}}">
+            <button type="button" class="post-filter" data-kind="" aria-pressed="true">{{- t.filter_all -}}</button>
+            <button type="button" class="post-filter" data-kind="work" aria-pressed="false">{{- t.search_work -}}</button>
+            <button type="button" class="post-filter" data-kind="project" aria-pressed="false">{{- t.search_projects -}}</button>
+        </div>
+        <ul id="search-results" class="search-results" role="listbox"></ul>
+        <p class="search-empty" hidden>{{- t.search_empty -}}</p>
+    </div>
+</dialog>
+
+<script>
+    (function () {
+        var dialog = document.getElementById('search');
+        var input = document.getElementById('search-input');
+        var list = document.getElementById('search-results');
+        var empty = dialog.querySelector('.search-empty');
+        var filters = dialog.querySelectorAll('[data-kind]');
+        var icons = '{{- "/assets/icons.svg" | relative_url -}}';
+        var kindLabels = {{ t.search_kinds | jsonify }};
+        var items = null, shown = [], active = 0, kind = '';
+
+        // Work covers jobs, internships and work-post sections
+        var groupOf = { Work: 'work', Internship: 'work', Section: 'work', Project: 'project' };
+
+        function load() {
+            if (items) return Promise.resolve();
+            return fetch('{%- include page-url.html ref="search" -%}')
+                .then(function (r) { return r.json(); })
+                .then(function (data) { items = data; });
+        }
+
+        function score(item, words) {
+            var title = item.title.toLowerCase();
+            var rest = (item.subtitle + ' ' + item.meta + ' ' + item.keywords).toLowerCase();
+            var body = item.body.toLowerCase();
+            var total = 0;
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i];
+                if (title.indexOf(w) !== -1) total += title.indexOf(w) === 0 ? 6 : 4;
+                else if (rest.indexOf(w) !== -1) total += 2;
+                else if (body.indexOf(w) !== -1) total += 1;
+                else return 0;
+            }
+            return total;
+        }
+
+        function render() {
+            var words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+            shown = items
+                .filter(function (item) { return !kind || groupOf[item.kind] === kind; })
+                .map(function (item, i) { return { item: item, s: words.length ? score(item, words) : 1, i: i }; })
+                .filter(function (r) { return r.s > 0; })
+                .sort(function (a, b) { return b.s - a.s || a.i - b.i; })
+                .map(function (r) { return r.item; });
+            active = 0;
+            list.innerHTML = '';
+            shown.forEach(function (item, i) {
+                var li = document.createElement('li');
+                li.setAttribute('role', 'option');
+                li.id = 'search-option-' + i;
+                var a = document.createElement('a');
+                a.href = item.url;
+                a.innerHTML = '<svg class="icon" aria-hidden="true"><use xlink:href="' + icons + '#' + item.icon + '"></use></svg>' +
+                    '<span class="search-text"><span class="search-title"></span><span class="search-meta"></span></span>' +
+                    '<span class="search-kind"></span>';
+                a.querySelector('.search-title').textContent = item.title;
+                a.querySelector('.search-meta').textContent = item.kind === 'Section' ? item.subtitle : item.meta;
+                a.querySelector('.search-kind').textContent = kindLabels[item.kind] || item.kind;
+                a.addEventListener('mousemove', function () { setActive(i); });
+                a.addEventListener('click', function () { dialog.close(); });
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+            empty.hidden = shown.length > 0;
+            setActive(0);
+        }
+
+        function setActive(i) {
+            var options = list.children;
+            if (!options.length) { input.removeAttribute('aria-activedescendant'); return; }
+            active = Math.max(0, Math.min(i, options.length - 1));
+            for (var j = 0; j < options.length; j++) options[j].setAttribute('aria-selected', String(j === active));
+            input.setAttribute('aria-activedescendant', options[active].id);
+            options[active].scrollIntoView({ block: 'nearest' });
+        }
+
+        function open() {
+            if (dialog.open) return;
+            dialog.showModal();
+            input.select();
+            load().then(render);
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                dialog.open ? dialog.close() : open();
+            }
+        });
+        document.querySelectorAll('.search-trigger').forEach(function (button) {
+            button.addEventListener('click', open);
+        });
+        // a click on the backdrop (outside the box) closes the dialog
+        dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+
+        input.addEventListener('input', function () { if (items) render(); });
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+            else if (e.key === 'Enter' && shown[active]) { e.preventDefault(); dialog.close(); location.href = shown[active].url; }
+        });
+        filters.forEach(function (button) {
+            button.addEventListener('click', function () {
+                kind = button.dataset.kind;
+                filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
+                if (items) render();
+                input.focus();
+            });
+        });
+
+        // show the shortcut for this platform
+        var mac = /Mac|iPhone|iPad/.test(navigator.platform);
+        document.querySelectorAll('.search-shortcut').forEach(function (el) { el.textContent = mac ? '⌘K' : 'Ctrl K'; });
+    })();
+</script>

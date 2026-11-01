@@ -1,0 +1,18 @@
+{%- comment -%}
+One section of the Projects page: include.group's projects from
+include.projects. include.level is the heading level: 2, or 3 inside
+"Earlier projects".
+{%- endcomment -%}
+{%- assign level = include.level | default: 2 -%}
+{%- assign members = include.projects | where: "group", include.group.id -%}
+{%- if members.size > 0 -%}
+<section class="post-group">
+    {%- assign name_key = "name_" | append: page.lang -%}
+    <h{{ level }}>{{- include.group[name_key] | default: include.group.name -}}</h{{ level }}>
+    <ul class="list-style-none post-list">
+        {%- for post in members -%}
+        {% include project-card.html post=post %}
+        {%- endfor -%}
+    </ul>
+</section>
+{%- endif -%}

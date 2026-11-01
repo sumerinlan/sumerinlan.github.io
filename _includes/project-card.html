@@ -1,0 +1,41 @@
+{%- comment -%}One project card (include.post), as on the Projects page.{%- endcomment -%}
+{%- assign post = include.post -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign excerpt_key = "excerpt_" | append: page.lang -%}
+<li class="post-list-block" data-categories="{% for category in post.categories %}{{ category | slugify }} {% endfor %}">
+    {%- include translation.html post=post lang=page.lang -%}
+    <a href="{{- translation.url | default: post.url -}}">
+        {%- if post.cover -%}
+        <div class="post-list-cover">
+            <img src="{{- post.cover | relative_url -}}" alt="" loading="lazy">
+        </div>
+        {%- endif -%}
+        <!-- role and date -->
+        <div class="post-list-header">
+            {%- assign category = post.categories | first -%}
+            {%- assign icon = site.data.icons.categories[category] -%}
+            <div class="post-list-role">{%- include icon.html name=icon -%}{%- include role.html role=post.role -%}</div>
+            <time class="post-list-date">{{- post.date | date: t.date_day -}}</time>
+        </div>
+
+        <!-- title and excerpt -->
+        <div class="post-list-content">
+            <div class="post-list-title">
+                {{- post.title | escape -}}
+                <span class="post-list-arrow" aria-hidden="true">→</span>
+            </div>
+            {%- if post.excerpt -%}
+            <div class="post-list-excerpt">{{- post[excerpt_key] | default: post.excerpt -}}</div>
+            {%- endif -%}
+            <!-- tags -->
+            {%- if post.tags -%}
+            <div class="post-list-tags">
+                {%- assign tags = post.tags | sort -%}
+                {%- for tag in tags -%}
+                <span class="post-tags">{{- tag -}}</span>
+                {%- endfor -%}
+            </div>
+            {%- endif -%}
+        </div>
+    </a>
+</li>

@@ -2,49 +2,59 @@
 layout: main
 ---
 
-<div class="post-content">
+{%- comment -%}
+Facts (dates, role, links, categories, tags) come from `entry`: the post
+itself, or a translation's `source` post. Labels follow page.lang.
+{%- endcomment -%}
+{%- include entry.html -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+<div class="post-content post-{{ entry.type | slugify }}">
     <p class="post-meta">
         <!-- date -->
         <time>
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            {{- page.date | date: date_format -}}
+            {%- if entry.type == "Work" or entry.type == "Internship" -%}
+            {%- include date-range.html post=entry -%}
+            {%- else -%}
+            {{- entry.date | date: t.date_day -}}
+            {%- endif -%}
         </time>
-        {%- if page.role -%}
-        <span class="post-meta-role">&nbsp;·&nbsp;{{- page.role -}}</span>
+        {%- if entry.role -%}
+        <span class="post-meta-role">&nbsp;·&nbsp;{%- include role.html role=entry.role -%}</span>
         {%- endif -%}
     </p>
 
-    {%- if page.demo or page.website or page.report or page.source_code -%}
+    {%- if entry.demo or entry.website or entry.report or entry.source_code -%}
     <p class="post-meta">
-        {%- if page.demo -%}
-        <a href="{{- page.demo -}}" target="_blank" class="post-items">Demo</a>
+        {%- if entry.demo -%}
+        <a href="{{- entry.demo -}}" target="_blank" class="post-items">{{- t.link_demo -}}</a>
         {%- endif -%}
-        {%- if page.website -%}
-        <a href="{{- page.website -}}" target="_blank" class="post-items">Website</a>
+        {%- if entry.website -%}
+        <a href="{{- entry.website -}}" target="_blank" class="post-items">{{- t.link_website -}}</a>
         {%- endif -%}
-        {%- if page.report -%}
-        <a href="{{- page.report -}}" target="_blank" class="post-items">Report</a>
+        {%- if entry.report -%}
+        <a href="{{- entry.report -}}" target="_blank" class="post-items">{{- t.link_report -}}</a>
         {%- endif -%}
-        {%- if page.source_code -%}
-        <a href="{{- page.source_code -}}" target="_blank" class="post-items">Source code</a>
+        {%- if entry.source_code -%}
+        <a href="{{- entry.source_code -}}" target="_blank" class="post-items">{{- t.link_source_code -}}</a>
         {%- endif -%}
     </p>
     {%- endif -%}
 
     <p class="post-meta">
         <!-- categories -->
-        {%- if page.categories -%}
-        {%- assign categories = page.categories | sort -%}
+        {%- if entry.categories -%}
+        {%- capture projects_url -%}{%- include page-url.html ref="projects" -%}{%- endcapture -%}
+        {%- assign categories = entry.categories | sort -%}
         {%- for category in categories -%}
-        <a href="{{- site.url -}}/projects#{{- category | slugify -}}" class="post-items">
-            {{- category -}}
+        <a href="{{- projects_url -}}#{{- category | slugify -}}" class="post-items">
+            {{- t.categories[category] | default: category -}}
         </a>
         {%- endfor -%}
         {%- endif -%}
 
         <!-- tags -->
-        {%- if page.tags -%}
-        {%- assign tags = page.tags | sort -%}
+        {%- if entry.tags -%}
+        {%- assign tags = entry.tags | sort -%}
         {%- for tag in tags -%}
         <span class="post-tags">{{- tag -}}</span>
         {%- endfor -%}
@@ -53,3 +63,15 @@ layout: main
 
     {{- content -}}
 </div>
+
+<script>
+    // a "#" link on each section heading, so a section can be linked to directly
+    document.querySelectorAll('.post-content h2[id]').forEach(function (heading) {
+        var link = document.createElement('a');
+        link.className = 'heading-anchor';
+        link.href = '#' + heading.id;
+        link.setAttribute('aria-label', {{ t.section_link | jsonify }});
+        link.textContent = '#';
+        heading.appendChild(link);
+    });
+</script>

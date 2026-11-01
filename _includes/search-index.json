@@ -1,0 +1,53 @@
+{%- comment -%}
+Everything the site search (⌘K) can find: work, internships and projects,
+plus each section of a work post (its h2 headings with ids).
+Text is in the language of the page that includes this (search.json,
+zh/search.json); a post with a translation in that language (_zh) is
+searched and linked as its translation.
+{%- endcomment -%}
+{%- assign excerpt_key = "excerpt_" | append: page.lang -%}
+{%- assign items = "" | split: "" -%}
+[
+{%- assign first = true -%}
+{%- for post in site.posts -%}
+{%- unless post.exclude -%}
+{%- if post.type == "Work" or post.type == "Internship" or post.type == "Project" -%}
+{%- capture dates -%}{%- if post.type == "Project" -%}{{ post.date | date: "%Y" }}{%- else -%}{%- include date-range.html post=post -%}{%- endif -%}{%- endcapture -%}
+{%- assign category = post.categories | first -%}
+{%- capture role -%}{%- include role.html role=post.role -%}{%- endcapture -%}
+{%- include translation.html post=post lang=page.lang -%}
+{%- assign doc = translation | default: post -%}
+{%- unless first -%},{%- endunless -%}{%- assign first = false -%}
+{
+    "kind": {{ post.type | jsonify }},
+    "title": {{ post.title | jsonify }},
+    "url": {{ doc.url | relative_url | jsonify }},
+    "subtitle": {{ post[excerpt_key] | default: post.excerpt | strip_html | strip_newlines | strip | jsonify }},
+    "meta": {{ role | append: " · " | append: dates | jsonify }},
+    "icon": {% if post.type == "Project" %}{{ site.data.icons.categories[category] | default: "code" | jsonify }}{% else %}"briefcase"{% endif %},
+    "keywords": {{ post.tags | concat: post.categories | join: " " | append: " " | append: post.location | jsonify }},
+    "body": {{ doc.content | strip_html | strip_newlines | truncatewords: 120 | jsonify }}
+}
+{%- if post.type == "Work" -%}
+{%- assign parts = doc.content | split: '<h2 id="' -%}
+{%- for part in parts offset: 1 -%}
+{%- assign id = part | split: '"' | first -%}
+{%- assign heading = part | split: '</h2>' | first | split: '>' | last -%}
+{%- assign text = part | split: '</h2>' | last | strip_html | strip_newlines -%}
+,
+{
+    "kind": "Section",
+    "title": {{ heading | strip | replace: "&amp;", "&" | jsonify }},
+    "url": {{ doc.url | relative_url | append: "#" | append: id | jsonify }},
+    "subtitle": {{ post.title | jsonify }},
+    "meta": {{ post.title | jsonify }},
+    "icon": "hash",
+    "keywords": "",
+    "body": {{ text | truncatewords: 120 | jsonify }}
+}
+{%- endfor -%}
+{%- endif -%}
+{%- endif -%}
+{%- endunless -%}
+{%- endfor -%}
+]

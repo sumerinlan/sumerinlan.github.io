@@ -1,0 +1,9 @@
+{%- comment -%}
+Sets translation: the _zh page whose `source` is include.post, or nil.
+Only Chinese translations exist, so it is nil unless include.lang is "zh".
+{%- endcomment -%}
+{%- assign translation = nil -%}
+{%- if include.lang == "zh" -%}
+{%- assign source_key = include.post.path | remove_first: "_posts/" | remove: ".md" -%}
+{%- assign translation = site.zh | where: "source", source_key | first -%}
+{%- endif -%}

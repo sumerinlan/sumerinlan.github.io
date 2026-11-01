@@ -1,0 +1,25 @@
+{%- comment -%}
+An entry's dates (include.post) in this page's language: "May 2021 – Present"
+from date and end_date; without end_date only the start month. periods,
+when set, replaces both with several ranges (e.g. two separate internships:
+"May–Aug 2018 · Feb–May 2019").
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- if p.periods -%}
+{%- for period in p.periods -%}
+{%- unless forloop.first %} · {% endunless -%}
+{%- assign start_year = period.start | date: "%Y" -%}
+{%- assign end_year = period.end | date: "%Y" -%}
+{%- if start_year == end_year -%}
+{{- period.start | date: t.date_span_start -}}–{{- period.end | date: t.date_span_end -}}
+{%- else -%}
+{{- period.start | date: t.date_month }} – {{ period.end | date: t.date_month -}}
+{%- endif -%}
+{%- endfor -%}
+{%- else -%}
+{{- p.date | date: t.date_month -}}
+{%- if p.end_date == "present" %} – {{ t.date_present }}
+{%- elsif p.end_date %} – {{ p.end_date | date: t.date_month -}}
+{%- endif -%}
+{%- endif -%}

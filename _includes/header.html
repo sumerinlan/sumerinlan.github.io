@@ -1,13 +1,45 @@
-<div class="wrapper wrapper-wide" id="header">
-    <a id="site-title" rel="author" href="{{- "/" | relative_url -}}">
+{%- comment -%}Run again here: Jekyll renders the header before head.html.{%- endcomment -%}
+{%- include alternate.html -%}
+{%- assign t = site.data.i18n[lang] -%}
+<div class="wrapper" id="header">
+    {%- assign alt_home = site.pages | where: "ref", "home" | where: "lang", alt_lang | first -%}
+    <a id="site-title" rel="author" href="{%- include page-url.html ref="home" -%}"{% unless alt_page %} data-alt-href="{{- alt_home.url | relative_url -}}"{% endunless %}>
         {{- site.title -}}
     </a>
 
     <nav id="site-nav">
-        {%- for page1 in site.pages -%}
-            {%- if page1.in-header and page1.site == page.site and page1.title  -%}
-                <a class="page-link" href="{{- page1.url -}}">{{- page1.title -}}</a>
-            {%- endif -%}
+        {%- for ref in site.data.nav -%}
+            {%- assign page1 = site.pages | where: "ref", ref | where: "lang", lang | first -%}
+            {%- assign page2 = site.pages | where: "ref", ref | where: "lang", alt_lang | first -%}
+            <a class="page-link{% if page1.url == page.url %} selected{% endif %}" href="{{- page1.url | relative_url -}}"{% unless alt_page %} data-alt-href="{{- page2.url | relative_url -}}" data-alt-label="{{- page2.title -}}"{% endunless %}>{{- page1.title -}}</a>
         {%- endfor -%}
+        <div class="nav-tools">
+            {%- if alt_page -%}
+            <a class="lang-switch" href="{{- alt_url -}}" hreflang="{{- alt_lang -}}" lang="{{- alt_lang -}}" data-set-lang="{{- alt_lang -}}" title="{{- t.switch_label -}}" aria-label="{{- t.switch_label -}}">
+                {%- include icon.html name="language" -%}
+            </a>
+            {%- else -%}
+            {%- comment -%}This page has one language: the icon stays, greyed, and does nothing.{%- endcomment -%}
+            <span class="lang-switch is-disabled" role="img" title="{{- t.switch_unavailable -}}" aria-label="{{- t.switch_unavailable -}}">
+                {%- include icon.html name="language" -%}
+            </span>
+            {%- endif -%}
+            <button type="button" class="search-trigger" aria-label="{{- t.search_button -}}">
+                {%- include icon.html name="search" -%}
+                <kbd class="search-shortcut">⌘K</kbd>
+            </button>
+        </div>
     </nav>
 </div>
+{%- unless alt_page %}
+<script>
+    // A page in one language: when the reader's language is the other one
+    // (see _includes/head.html), the header links lead to their language.
+    if (window.readerLang === '{{- alt_lang -}}') {
+        document.querySelectorAll('#header [data-alt-href]').forEach(function (link) {
+            link.href = link.getAttribute('data-alt-href');
+            if (link.hasAttribute('data-alt-label')) link.textContent = link.getAttribute('data-alt-label');
+        });
+    }
+</script>
+{%- endunless -%}

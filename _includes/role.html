@@ -1,0 +1,23 @@
+{%- comment -%}
+include.role in this page's language, from _data/i18n.yml `roles`. A role
+not listed whole (e.g. "UX Designer, Developer") is split at ", " when every
+part is listed; otherwise it stays in English.
+{%- endcomment -%}
+{%- assign roles = site.data.i18n[page.lang].roles -%}
+{%- if roles == nil -%}
+{{- include.role -}}
+{%- elsif roles[include.role] -%}
+{{- roles[include.role] -}}
+{%- else -%}
+{%- assign parts = include.role | split: ", " -%}
+{%- assign all_listed = true -%}
+{%- for part in parts -%}{%- unless roles[part] -%}{%- assign all_listed = false -%}{%- endunless -%}{%- endfor -%}
+{%- if all_listed == false -%}
+{{- include.role -}}
+{%- else -%}
+{%- for part in parts -%}
+{%- unless forloop.first -%}{{- site.data.i18n[page.lang].role_separator -}}{%- endunless -%}
+{{- roles[part] -}}
+{%- endfor -%}
+{%- endif -%}
+{%- endif -%}

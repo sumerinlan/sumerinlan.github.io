@@ -1,10 +1,13 @@
 # Site
 title:             Suyie Zhi
+lang:              en
 
 # Profile
-author:            Suyie Z.
-headline:          Full-Stack Engineer
-description:       Senior Software Engineer at Snowflake, building full-stack data-sharing products on SnowflakeDB.
+author:            Suyie Zhi
+headline:          Senior Software Engineer
+headline_zh:       高级软件工程师
+description:       Building products at Snowflake that help customers share and discover data and AI.
+description_zh:    在 Snowflake 开发产品，帮助客户共享和发现数据与 AI。
 github_username:   sumerinlan
 linkedin_username: suyieqilezhi
 
@@ -13,3 +16,50 @@ markdown:          kramdown
 theme:             minima
 plugins:
   - jekyll-feed
+
+# Chinese translations of posts. A file's place in _zh is its URL after /zh,
+# matching its post's URL: _zh/experience/snowflake.md is /zh/experience/snowflake
+collections:
+  zh:
+    output: true
+    permalink: /zh/:path
+
+# Every page is English unless its front matter says `lang: zh`
+defaults:
+  - scope:
+      path: ""
+    values:
+      lang: en
+  # Post URLs follow the site's sections: /projects/<name>, /experience/<name>
+  # (<name> is the file name without its date)
+  - scope:
+      path: "_posts/projects"
+    values:
+      permalink: /projects/:title
+  - scope:
+      path: "_posts/work"
+    values:
+      permalink: /experience/:title
+  - scope:
+      path: "_posts/internships"
+    values:
+      permalink: /experience/:title
+  - scope:
+      path: ""
+      type: zh
+    values:
+      lang: zh
+      layout: post
+
+# Repo files that are not part of the site (Jekyll's defaults are listed
+# again because this list replaces them)
+exclude:
+  - CLAUDE.md
+  - README.md
+  - scripts
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache

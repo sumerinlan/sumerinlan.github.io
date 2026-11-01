@@ -1,0 +1,5 @@
+---
+layout: null
+ref: search
+---
+{% include search-index.json %}

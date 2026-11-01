@@ -1,0 +1,19 @@
+# Sections of the Projects page, in order. Each project names one id in
+# its `group` front matter; a section with no project is not shown.
+# name_zh is the Chinese section name.
+# `archive: true` sections sit, folded, under "Earlier projects";
+# a project with `archive: true` also folds there, in its own section.
+-   id:   Personal
+    name: Personal Projects
+    name_zh: 个人项目
+-   id:   Stanford
+    name: Stanford University
+    name_zh: 斯坦福大学
+-   id:   UIUC
+    name: University of Illinois at Urbana-Champaign
+    name_zh: 伊利诺伊大学香槟分校
+    archive: true
+-   id:   Internship
+    name: Internships
+    name_zh: 实习
+    archive: true

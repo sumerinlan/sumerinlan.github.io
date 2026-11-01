@@ -1,0 +1,3 @@
+{%- comment -%}URL of the page with `ref` include.ref in this page's language.{%- endcomment -%}
+{%- assign target = site.pages | where: "ref", include.ref | where: "lang", page.lang | first -%}
+{{- target.url | relative_url -}}

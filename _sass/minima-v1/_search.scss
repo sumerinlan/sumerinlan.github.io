@@ -1,0 +1,195 @@
+/*
+ * Site search (⌘K): header button and the dialog
+ */
+// the language link next to it uses the same small button look
+.search-trigger,
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 2px $space-2;
+    border: $border-width solid var(--border);
+    border-radius: $radius-md;
+    background-color: var(--surface);
+    color: var(--text-secondary);
+    font: inherit;
+    cursor: pointer;
+
+    &:visited {
+        color: var(--text-secondary);
+    }
+
+    &:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+    }
+
+    // phones: icon only (no keyboard to press ⌘K on)
+    .search-shortcut {
+        @media screen and (max-width: $on-large) {
+            display: none;
+        }
+    }
+}
+
+// the language icon on a page that has only one language: faded, inert
+.lang-switch.is-disabled {
+    opacity: 0.4;
+
+    &,
+    &:hover {
+        border-color: var(--border);
+        color: var(--text-secondary);
+        cursor: not-allowed;
+    }
+}
+
+// language link and search button, side by side; on phones on the title's row
+.nav-tools {
+    display: flex;
+    align-items: stretch;
+    gap: $space-2;
+    @media screen and (max-width: $on-large) {
+        position: absolute;
+        top: $space-6;
+        right: 0;
+    }
+}
+
+kbd {
+    @include type-caption;
+    font-family: $font-latin;
+    color: var(--text-muted);
+}
+
+#search {
+    // layout: near the top, one column wide
+    width: calc(100% - #{$space-4 * 2});
+    max-width: 640px;
+    max-height: calc(100vh - #{$space-8 * 2});
+    max-height: calc(100svh - #{$space-8 * 2});
+    margin: $space-8 auto auto;
+    padding: 0;
+    border: $border-width solid var(--border);
+    border-radius: $radius-lg;
+    background-color: var(--surface);
+    color: var(--text);
+
+    &::backdrop {
+        background-color: rgba(23, 22, 29, 0.4);
+    }
+
+    &[open] {
+        display: flex;
+    }
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+}
+
+.search-input-row {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4 $space-5;
+    border-bottom: $border-width solid var(--border);
+    color: var(--text-secondary);
+
+    input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        background: none;
+        color: var(--text);
+        font: inherit;
+        @include type-body;
+
+        &::-webkit-search-cancel-button {
+            display: none;
+        }
+    }
+}
+
+.search-filters {
+    display: flex;
+    gap: $space-2;
+    padding: $space-3 $space-5 0;
+}
+
+.search-results {
+    list-style: none;
+    margin: 0;
+    padding: $space-2 $space-3 $space-3;
+    overflow-y: auto;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        padding: $space-2 $space-3;
+        border-radius: $radius-md;
+
+        &,
+        &:visited {
+            color: var(--text);
+        }
+
+        .icon {
+            color: var(--text-muted);
+        }
+    }
+
+    [aria-selected="true"] a {
+        background-color: var(--accent-soft);
+
+        .icon,
+        .search-title {
+            color: var(--accent-text);
+        }
+    }
+}
+
+.search-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-title {
+    @include type-body-sm;
+    font-weight: $weight-medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-meta {
+    @include type-caption;
+    font-weight: $weight-regular;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-kind {
+    @include tag;
+}
+
+.search-empty {
+    @include type-body-sm;
+    color: var(--text-secondary);
+    padding: $space-4 $space-5;
+    margin: 0;
+}
