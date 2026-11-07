@@ -85,7 +85,7 @@ PY
 python3 - <<'PY'
 import glob, hashlib, os, re, sys
 stale = []
-for path in sorted(glob.glob("_zh/*.md")):
+for path in sorted(glob.glob("_zh/**/*.md", recursive=True)):
     front = open(path, encoding="utf-8").read().split("---\n", 2)[1]
     source = re.search(r"^source:\s*(\S+)", front, re.M)
     recorded = re.search(r"^source_hash:\s*(\S+)", front, re.M)
