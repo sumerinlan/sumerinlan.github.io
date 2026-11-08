@@ -34,7 +34,7 @@ So I kept the data in Notion and built a separate gallery for viewing: [museum-j
 
 In October I built the first version with Muse. Muse wrote all of the code. I decided what the gallery should do.
 
-- **Data:** Muse reads the five databases through its Notion connector. It flattens their relations into the data the site uses. I copy nothing by hand.
+- **Data:** Muse runs a sync script that reads the five databases through the Notion API. It flattens their relations into the data the site uses. I copy nothing by hand.
 - **Steps:** I started with one exhibition and five paintings, then made changes. Next came two exhibitions and ten paintings, with more artists and museums, and another round of changes. Then the full set.
 - **Navigation:** this changed the most. A museum page holds its permanent collection. Only special exhibitions have their own page. An artist page lists their works across museums.
 
@@ -79,4 +79,4 @@ These details are small. Together they make the gallery mine.
 
 ## What's Inside
 
-My museum visits from 2019 to 2026, in Paris, New York, the Bay Area, Washington, D.C. and Los Angeles. I took every photo.
+My museum visits from 2019 to 2026, in Paris and Versailles, New York, the Bay Area, Washington, D.C. and Los Angeles. I took every photo.
