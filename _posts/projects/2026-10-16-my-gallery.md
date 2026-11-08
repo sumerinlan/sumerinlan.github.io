@@ -79,4 +79,4 @@ These details are small. Together they make the gallery mine.
 
 ## What's Inside
 
-My museum visits from 2019 to 2026, in Paris, New York, the Bay Area, Washington, D.C., Chicago and Los Angeles. I took every photo.
+My museum visits from 2019 to 2026, in Paris, New York, the Bay Area, Washington, D.C. and Los Angeles. I took every photo.
