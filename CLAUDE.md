@@ -13,7 +13,7 @@ Jekyll site served by GitHub Pages (`github-pages` gem, Jekyll 3.10). Visual rul
 - Work content uses only what Snowflake's public docs describe. No Private Preview features, internal tools, team processes or people's names.
 - Do not claim more than Suyie did. Use "built", "owned" or "led" only where her notes support it; team launches are "worked on", not "shipped".
 - English copy is plain: short sentences, no metaphors, no exclamation marks. Personal pages tell a story in time order; work pages stay concise.
-- Use the full name Suyie Zhi on this site.
+- Use the full name Suyie Zhi on this site, except the footer, which says only "© <year> Suyie".
 
 ## Front matter
 

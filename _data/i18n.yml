@@ -29,7 +29,6 @@ en:
         Internship: Internship
         Project:    Project
         Section:    Section
-    copyright:          All Rights Reserved.
     shipped_title:      Launches I worked on
     section_link:       Link to this section
     link_demo:          Demo
@@ -63,7 +62,6 @@ zh:
         Internship: 实习
         Project:    项目
         Section:    章节
-    copyright:          保留所有权利。
     shipped_title:      参与上线的功能
     section_link:       链接到本节
     link_demo:          Demo
