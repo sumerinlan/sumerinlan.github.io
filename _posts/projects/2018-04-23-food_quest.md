@@ -9,7 +9,7 @@ group: UIUC
 categories: [Web Development]
 tags: [HTML5, CSS, JavaScript, Bootstrap, Database Design]
 # project info
-role: Front-end Web Developer
+role: Front-End Web Developer
 demo: https://www.youtube.com/watch?v=mypaFLsoPyk
 report: https://wiki.illinois.edu/wiki/display/cs411sp18/UpVersion+-+Final+Report
 source_code: https://github.com/Ruiqian-Yao/cs411-project

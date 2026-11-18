@@ -44,7 +44,7 @@ Drinks are categorized based on the menu to help people better find drinks. To s
 
 Exploring the data, we can see that many drinks among a sub-category share a similar trend. For example, under "Hot Coffees", **americanos** are low-calorie, while mochas contain more calories and sugars. Also, when a drink is high in calories, the sugar contents are often simultaneously high.
 
-**How to play 🍵:** **Hover** above the drinks to inspect detailed nutrition information. **Select** a tab to change the type. **Type** in the search bar to filter drinks.
+**How to play:** **Hover** above the drinks to inspect detailed nutrition information. **Select** a tab to change the type. **Type** in the search bar to filter drinks.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image1.png)
 
@@ -58,7 +58,7 @@ We can easily see the detailed calories for each type of drink. For example, cof
 
 The ranges of calories vary from drink to drink. The general trend is that the higher the maximum calories go, the longer the bar is. This quite makes sense: if cold brews have lower calories for their maximum size, they have less room to decrease for reduced sizes. A drink with a wider range of choices can satisfy different customer needs; for example, if I don't care about calories, I can order a Venti or even Trenta size, but if I care about my weight, I can have a healthier choice with a small size, but that's still the same flavor that I want.
 
-**How to play 🍵:** **Hover** above the lines to see the exact range. Type in the search bar to filter drinks.
+**How to play:** **Hover** above the lines to see the exact range. Type in the search bar to filter drinks.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image2.png)
 
@@ -72,7 +72,7 @@ Each type of drink has distinct characteristics. Take coffees as an example. Whe
 
 Generally speaking, for drinks with hot and cold options, hot ones contain higher calories than cold drinks. At the same time, the numbers are equal for some drinks with low calories already, such as americano and espresso.
 
-**How to play 🍵:** **Hover** to highlight the current drink and its corresponding hot/cold option. **Hover** on any empty space to reset the graph.
+**How to play:** **Hover** to highlight the current drink and its corresponding hot/cold option. **Hover** on any empty space to reset the graph.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image6.png)
 
@@ -90,7 +90,7 @@ From the chart, we can see the positive correlation between calories and sugars.
 -   Many beverages are gathered in the 150-calorie, 20g-sugar region, including classic coffee with milk, such as **lattes** and **flat whites**, as well as cold drinks. Customers who choose these products may balance both flavor and health.
 -   High-calorie products, such as **Frappuccinos** and **mochas**, are also very popular, as shown in a cluster at the top-right corner.
 
-**How to play 🍵:** **Toggle** on or off the checkbox to show or hide top-ranked drinks. **Hover** on the green dots to see top drinks and their nutritional information.
+**How to play:** **Toggle** on or off the checkbox to show or hide top-ranked drinks. **Hover** on the green dots to see top drinks and their nutritional information.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image4.png)
 
@@ -113,7 +113,7 @@ As a result, we visualized these three important indicators: calories from carbo
 
 Moreover, when focusing on the distribution among these three indicators, you may like to consider something like **Caffè Latte** to drink and **Spinach, Feta & Cage-Free Egg White Wrap** to eat, since they both have a relatively balanced distribution compared with the other options.
 
-**How to play 🍵:** The axis and dots represent the calories distribution of the top items, respectively. **Hover** on the following donut graph to see the position of a specific item on the calories axis.
+**How to play:** The axis and dots represent the calories distribution of the top items, respectively. **Hover** on the following donut graph to see the position of a specific item on the calories axis.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image3.png)
 
@@ -123,7 +123,7 @@ Moreover, when focusing on the distribution among these three indicators, you ma
 
 Keeping one meal of the day under 500 calories is considered one of the regular options for people who work out. Many people also choose to make up their options (food + drink) directly at Starbucks. Here, we have provided a food recommender, where the calories of the drink are provided based on your choice for the item and its size; meanwhile, it helps you screen out a list of food you can choose from, to limit the total calories within 500.
 
-**How to play 🍵:** The navigator on the very left can guide you through the types of drink options at Starbucks. **Click** on the sorted drinks directly, as well as the size options. We would automatically provide you with a list of food on the right from which you can choose, in the meantime maintaining the overall calories under 500.
+**How to play:** The navigator on the very left can guide you through the types of drink options at Starbucks. **Click** on the sorted drinks directly, as well as the size options. We would automatically provide you with a list of food on the right from which you can choose, in the meantime maintaining the overall calories under 500.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image7.png)
 
@@ -142,7 +142,7 @@ As can be seen from the scatter plot:
 -   Although tea is also considered to be able to provide sufficient caffeine thus bringing an invigorating effect, **tea beverages** at Starbucks are generally clustered in areas with low caffeine contained (&lt; 50mg).
 -   The popular **Frappuccinos** series turns out to be the most "sleepy" option --- low caffeine and high calories make them not a good choice for an "efficient" drink, but potential risks that make people more sleepy. But it's not necessarily true, since the large proportion of ice contained may also have a refreshing effect :)
 
-**How to play 🍵:** **Hover** on the color dots to see drinks and their information on calories and caffeine.
+**How to play:** **Hover** on the color dots to see drinks and their information on calories and caffeine.
 
 ![](/assets/posts/2020-03-23-you-dont-know-about-starbucks/image8.png)
 

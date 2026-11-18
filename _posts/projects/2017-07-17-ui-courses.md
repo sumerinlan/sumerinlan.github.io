@@ -9,7 +9,7 @@ group: UIUC
 categories: [Web Development]
 tags: [HTML5, CSS, JavaScript, Database Design]
 # project info
-role: Front-end Web Developer
+role: Front-End Web Developer
 report: https://github.com/sumerinlan/uicourses_v2/wiki
 source_code: https://github.com/sumerinlan/uicourses_v2
 # content info

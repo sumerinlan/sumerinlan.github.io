@@ -71,7 +71,7 @@ I don't count on either agent being careful. I count on the checks.
 - **Two views:** a museum page has a detail view with labels and a thumbnail view.
 
 <div class="screens">
-    <figure><img src="/assets/posts/2026-10-16-my-gallery/label.jpg" alt="Pissarro's Boulevard des Italiens, Morning, Sunlight photographed in its frame, above its label with the English and Chinese titles and the year"><figcaption>A work with its label.</figcaption></figure>
+    <figure><img src="/assets/posts/2026-10-16-my-gallery/label.jpg" alt="Pissarro's Boulevard des Italiens, Morning, Sunlight photographed in its frame, above its label with the title and the year"><figcaption>A work with its label.</figcaption></figure>
     <figure><img src="/assets/posts/2026-10-16-my-gallery/thumbnails.jpg" alt="A grid of painting thumbnails from the Musée d'Orsay"><figcaption>The Musée d'Orsay in the thumbnail view.</figcaption></figure>
 </div>
 
